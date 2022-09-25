@@ -1,177 +1,225 @@
 <!DOCTYPE html>
-<html>
-<title>Batuhan Erdeniz - Frontend Dev</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-</style>
-<body class="w3-black">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+  margin: 0;
+  background-color: darkgray;
+  font-family: 'Poiret One', cursive;
+}
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PROJECTS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
+#nav{
+  height: 100px;
+  width: 100%;
+  background-color: rgb(52, 52, 52);
+  display: flex;
+  justify-content: space-between;
+}
+button:hover{
+  width: 100px;
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  font-family: 'Poiret One', cursive;
+  font-size: 20px;
+}
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PROJECTS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
-</div>
+button{
+  box-shadow: rgba(240, 46, 46, 0.4) 0px 5px, rgba(240, 46, 46, 0.3) 0px 10px, rgba(240, 46, 46, 0.2) 0px 15px, rgba(240, 46, 46, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+  width: 100px;
+  background-color: firebrick;
+  color: white;
+  border-radius: 20px;
+  font-family: 'Poiret One', cursive;
+  font-size: 20px;
+}
+#logo{
+color: aquamarine;
+font-family:'Courier New', Courier, monospace;
+margin: 30px;
+font-size: 20px;
+}
+#contact{
+color: aquamarine;
+font-family:'Courier New', Courier, monospace;
+margin: 30px;
+font-size: 20px;
+}
 
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Batuhan Erdeniz.</h1>
-    <p>Frontend Developer.</p>
-    <img src="https://i.hizliresim.com/2cs6zfb.jpg" alt="boy" class="w3-image" width="750" height="900">
-  </header>
+#bod{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">About</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <p>
-      Just a traveler in this universe who does some frontend coding & Analytics stuff 👨‍💻
-    </p>
-    <br>
-    <p>
-        Feel free to say hi to me to work together or share some ideas 💡
-    </p>
-    <br>
-    <p>
-        Cheers 🍻
-    </p>
-    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
-    <p class="w3-wide">Web Developing</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
+#bg-image {
+  background-color: black;
+  height: 70vh;
+  width: 100%;
+  opacity: 90%;
+  background: url(https://cdn.motor1.com/images/mgl/JOOv36/s3/pagani_utopia_13.jpg) no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bg-text {
+  width: 100%;
+  height: 40vh;
+  background-color: rgb(34, 34, 34);
+  opacity: 93%;
+  text-align: center;
+  color: white;
+}
+
+.tanitim{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 100%;
+  height: 600px;
+  background-color: darkgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tanitim-child-1{
+  background: url(https://mystickermania.com/cdn/stickers/animals/american-eskimo-dog-512x512.png) no-repeat;
+  background-size: cover;
+  width: 400px;
+  height: 450px;
+}
+.tanitim-child-3{
+  border-radius: 350px;
+    background: url(https://preview.free3d.com/img/2013/03/1695082367451924461/g35ajc5n-900.jpg) no-repeat;
+    background-size: cover;
+    width: 700px;
+    height: 700px;
+  }
+
+.pac-man {
+width: 0px;
+height: 0px;
+border-right: 29px solid transparent;
+border-top: 29px solid #333;
+border-left: 29px solid #333;
+border-bottom: 29px solid #333;
+border-top-left-radius: 29px;
+border-top-right-radius: 29px;
+border-bottom-left-radius: 29px;
+border-bottom-right-radius: 29px;
+}
+
+.pac-man:hover {
+width: 0px;
+height: 0px;
+border-right: 29px solid transparent;
+border-top: 29px solid yellow;
+border-left: 29px solid yellow;
+border-bottom: 29px solid yellow;
+border-top-left-radius: 29px;
+border-top-right-radius: 29px;
+border-bottom-left-radius: 29px;
+border-bottom-right-radius: 29px;
+}
+
+.tanitim-child-2{
+  text-align: center;
+  width: 700px;
+  height: 300px;
+  background-color: darkgray;
+}
+
+#ftr{
+  margin-top: 320px;
+  width: 100%;
+  height: 100px;
+  background-color: darkolivegreen;
+  display: flex;
+  justify-content: space-between;
+}
+
+p{
+  color: aquamarine;
+  font-family:'Courier New', Courier, monospace;
+  margin: 30px;
+  font-size: 20px;
+}
+
+.made{
+  font-size: 10px;
+  margin-left: 35px;
+  margin-top: 50px;
+}
+
+
+
+
+#github{
+  margin-left: 35px;
+  margin-top: 35px;
+  width: 100px;
+  height: 40px;
+  font-size: 12px;
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+        <!-- <div id="nav">
+            <p>Batu Codes</p>
+            <p>İletişim</p>
+        </div> -->
+
+        <div id="bod">
+            <div id="bg-image">
+                <div id="bg-text">
+                    <h1 style="font-size:70px">I am Batu</h1>
+                    <h2>And I'm a Front-end Developer</h2>
+                    <button id="hire" onclick="location.href='https://www.linkedin.com/in/batuhan-erdeniz/'">Hire me!</button>
+                </div>
+            </div>
+
+            
+
+            <div class="tanitim">
+                <div class="tanitim-child-1"></div>
+                <div class="tanitim-child-2">
+                    
+                    <h1>Fact: Everyone who thinks is a Rick is most probably a Jerry</h1>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <hr style="border: 1px solid black;">
+            <div class="pac-man"></div>
+            <hr style="border: 1px solid black;">
+            <div class="tanitim">
+                
+                <div class="tanitim-child-2">
+                    
+                    <h2>I have designed the Pagani Zonda (In my dreams)</h2>
+                    
+                    <a style="color: darkblue; text-decoration: none;" href="https://www.linkedin.com/in/batuhan-erdeniz/">If you want to accomplish your dreams contact me via Linkedin</a>
+                </div>
+                <div class="tanitim-child-3"></div>
+            </div>
+
+
     </div>
-    <p class="w3-wide">UI Design</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
+    
+    <div id="ftr">
+        <button id="github" onclick="location.href='https://github.com/batuhanerdeniz';" >My Github Page</button>
+        <p class="made">Made in 2022 at Neos Yazılım</p>
     </div>
-    <p class="w3-wide">Photography</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-    </div><br>
-    
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">11+</span><br>
-        Partners
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">55+</span><br>
-        Projects Done
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">89+</span><br>
-        Happy Clients
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">150+</span><br>
-        Meetings
-      </div>
-    </div>
-
-    <button onclick="location.href='https://batuhanerdeniz.github.io/BatuhanErdenizResume.PDF'" class="w3-button w3-light-grey w3-padding-large w3-section">
-      <i class="fa fa-download"></i> Download Resume
-    </button>
-    
-    
-    </div>
-    
-  <!-- End About Section -->
-  </div>
-  
-  <!-- Portfolio Section -->
-  <div class="w3-padding-16 w3-content" id="photos">
-    <h2 class="w3-text-light-grey">My Projects</h2>
-    <br>
-    <hr style="width:200px" class="w3-opacity">
-    <a href="https://www.sabah.com.tr/">sabah -> News website</a>
-    <br>
-    <a href="https://www.atv.com.tr/">atv -> TV Channel Website</a>
-    <br>
-    <a href="https://www.istanbulonbike.com/">İstanbul on Bike -> A bike tour company</a>
-    <br>
-    <a href="https://www.oktabi.com/">Oktabi -> A small workshop which does swords&helmets for Netflix&local series</a>
-    <br>
-    <a href="https://github.com/batuhanerdeniz/castle_wars">Castle Wars -> Most Loved Card game now in Vanilla JS (soon to be live)</a>
-    <br>
-    <h3>...and +50 web&robotics projects for 8 years</h3>
-    
-
-    </div>
-  <!-- End Portfolio Section -->
-  </div>
-
-  <!-- Contact Section -->
-  <div class="w3-padding-16 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-light-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> İstanbul - Turkey</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: erdenizbatuhan@gmail.com</p>
-    </div><br>
-
-    <!-- <form action="/action_page.php" target="_blank">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
-      <p>
-        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
-      </p>
-    </form> -->
-  <!-- End Contact Section -->
-  </div>
-  
-    <!-- Footer -->
-  <footer class="w3-content w3-padding-16 w3-text-grey w3-xlarge">
-        <p>Let's get in touch. Send me a message via LinkedIN:</p>
-        <br>
-    <a href="https://www.linkedin.com/in/batuhan-erdeniz/" class="fa fa-linkedin w3-hover-opacity"></a>
-  <!-- End footer -->
-  </footer>
-
-<!-- END PAGE CONTENT -->
-</div>
-
 </body>
 </html>
