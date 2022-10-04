@@ -1,0 +1,24 @@
+#bg{
+    margin-top: -80px;
+    height: 900px;
+    background: url('https://www.topgear.com/sites/default/files/2021/08/2010-Pagani-Zonda-R-Evolution-_74.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.kaydir{
+    margin-left: 20vw;
+}
+.slayt{
+    width: 50vw;
+    margin: auto;
+}
+/* .navbar{
+    opacity: 0;
+} */
+.accordion{
+    margin: auto;
+    margin-top: 300px;
+    text-align: center;
+}
+.simdi{
+    width: 410px;
+}
