@@ -1,161 +1,290 @@
-<!DOCTYPE html>
-<html>
-<title>Batuhan Erdeniz - Frontend Dev</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-</style>
-<body class="w3-black">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Arabanın İyisi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#projects" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PROJECTS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
+  <body>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#projects" class="w3-bar-item w3-button" style="width:25% !important">PROJECTS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
-</div>
+  <main class="bg-dark">
+      <!--NAVBAR -->
+      <nav class="navbar navbar-dark bg-dark sticky-top" id="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand display-4" href="index.html">
+          
+          Arabanın <span class="text-success">İyisi</span>
+        </a>
+        <form class="d-flex mt-2">
+          <button class="btn btn-outline-secondary bg-dark mb-3 me-2" type="submit">Arabanı Sat!</button>
+          <button class="btn btn-outline-success bg-dark mb-3" type="submit">Kaydol</button>
+        </form>
+      </div>
+      </nav>
+      <!--NAVBAR -->
 
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Batuhan Erdeniz.</h1>
-    <p>Frontend Developer.</p>
-    <img src="https://i.hizliresim.com/2cs6zfb.jpg" alt="boy" class="w3-image" width="750" height="900">
-  </header>
 
-  <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">About</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <p>Just a traveler in this universe who does some frontend coding & Analytics stuff 👨‍💻</p>
-    <br>
-    <p> Feel free to say hi to me to work together or share some ideas 💡</p>
-    <br>
-    <p>
-        Cheers 🍻
-    </p>
-    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
-    <p class="w3-wide">HTML-CSS-JS</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:100%"></div>
+      <!--İlk -->
+      <section>
+    <div id="bg">
+    <div class="w-50" id="bg-text">
+      <h1 class="display-1 text-light "></h1>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h1 class="display-1 text-light kaydir">Arabanın</h1>
+      <h1 class="display-1 text-success kaydir">İyisi</h1>
+      <br>
+      <br>
+      <h2 class="display-4 text-light kaydir">"İyi" arabanın adresi</h2>
+      <br>
+      <br>
+      <br>
+      <a id="" class=" btn bg-success kaydir " href="#" role="button"> 
+      <span class="spinner-grow spinner-grow-sm"></span> Sadece 99₺'ye ilan ver!</a>
+      
     </div>
-    <p class="w3-wide">React</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
     </div>
-    <p class="w3-wide">NodeJS-MongoDB-ExpressJS</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-    </div><br>
+      </section>
+      <!--İlk -->
+<br>
+<br>
+<hr>
+<br>
+<br>
+<!--Container Başlangıcı -->
+<div class="container">
     
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">3+</span><br>
-        Upwork Clients
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">15+</span><br>
-        Projects Done
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">20+</span><br>
-        Total Freelance Projects
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">150+</span><br>
-        Meetings
-      </div>
-    </div>
+<br>
+<br>  
+<!-- ilanlar -->
+<section>
+  <h2 class="display-4 text-light text-center">Son İlanlar</h2>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 mt-5 text-center">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header" style="height: 350px; background:url(./img/fiat-uno-turbo-1.jpg) no-repeat; background-size: cover; ">
+              
+            </div>
+            <div class="card-body">
+              <h3 class="card-title pricing-card-title">Fiat Uno 1.3 Turbo</h3>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>1985 - 162.000 KM</li>
+                <li>399.900 ₺</li>
+              </ul>
+              <button onclick="window.open('https://www.sahibinden.com/ilan/vasita-otomobil-fiat-otomix-1985-fiat-uno-turbo-i.e-mk1-tr-de-tek-162000-km-1039992717/detay/','_blank');" type="button" class="w-100 btn btn-lg btn-outline-primary">İncele</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header" style="height: 350px; background:url(./img/peugeot-106-dimma-1.jpg) no-repeat; background-size: cover; ">
+                
+              </div>
+              <div class="card-body">
+                <h3 class="card-title pricing-card-title">Peugeot 106 Maxi Dimma</h3>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>1999 - 225.000 KM</li>
+                  <li>405.000 ₺</li>
 
-    <button onclick="location.href='https://batuhanerdeniz.github.io//BatuhanErdenizResume.PDF'" class="w3-button w3-light-grey w3-padding-large w3-section">
-      <i  class="fa fa-download"></i> Download Resume
-    </button>
-
-    <button onclick="location.href='https://www.upwork.com/freelancers/~01769fce047c289b39?viewMode=1'" class="w3-button w3-green w3-padding-large w3-section">
-     Check out my Upwork Profile
-    </button>
-    
-
-    </div>
-    <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="projects">
-        <h2 class="w3-text-light-grey">Projects</h2>
-        <hr style="width:200px" class="w3-opacity">
-        <a href="https://batuhanerdeniz.github.io/projects/castle-wars/index.html">Beloved Castle Wars Card Game on Pure JS (Not Yet finished)</a>
-        <br>
-        <br>
-        <a href="https://batuhanerdeniz.github.io/projects/matrix_code_rain/index.html">Make it rain like matrix</a>
-        <br>
-        <br>
-        <a href="https://www.sabah.com.tr/">Sabah - I have worked at one of the biggest news website in Turkey</a>
-        <br>
-        <br>
-        <a href="http://istanbulonbike.com/">Istanbulonbike - I have made a website for a tourism company which does bike tours in İstanbul</a>
-        <br>
-        <br>
-        <a href="https://www.oktabi.com/">Oktabi - I have made a small website for a small company called oktabi. Which does some metal works for Netflix and in Turkey.</a>
-        <h3></h3>
+                </ul>
+                <button onclick="window.open('https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-106-maxi-dimma-1052942015/detay/','_blank');" type="button" class="w-100 btn btn-lg btn-outline-primary">İncele</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header" style="height: 350px; background:url(./img/megane-rs-1.jpg) no-repeat; background-size: cover; ">
+                
+              </div>
+              <div class="card-body">
+                <h3 class="card-title pricing-card-title">Renault Megane RS</h3>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>2005 - 150.000 KM</li>
+                  <li>480.000 ₺</li>
+                </ul>
+                <button onclick="window.open('https://www.sahibinden.com/ilan/vasita-otomobil-renault-hatasiz-boyasiz-ful-yetkili-servis-bakimli-turkiyede-nadir-kalan-1022714535/detay/','_blank');" type="button" class="w-100 btn btn-lg btn-outline-primary">İncele</button>
+              </div>
+            </div>
+          </div>
         
     </div>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 mt-5 text-center">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header" style="height: 350px; background:url(./img/m5-e60.jpg) no-repeat; background-size: cover; ">
+              
+            </div>
+            <div class="card-body">
+              <h3 class="card-title pricing-card-title">BMW M5</h3>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>2007 - 24.211 KM</li>
+                <li>5.100.000 ₺</li>
+
+              </ul>
+              <button onclick="window.open('https://www.sahibinden.com/ilan/vasita-otomobil-bmw-grand-bayi-koleksiyon-araci-sadece-24bin-km-de-hatasiz-boyasiz-931760522/detay','_blank');" type="button" class="w-100 btn btn-lg btn-outline-primary">İncele</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header" style="height: 350px; background:url(./img/mazda-mx5.jpg) no-repeat; background-size: cover; ">
+                
+              </div>
+              <div class="card-body">
+                <h3 class="card-title pricing-card-title">Mazda MX-5</h3>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>2021 - 4.950 KM</li>
+                  <li>1.180.000 ₺</li>
+                </ul>
+                <button onclick="window.open('https://www.sahibinden.com/ilan/vasita-otomobil-mazda-mazda-mx5-2021-1045696850/detay','_blank');" type="button" class="w-100 btn btn-lg btn-outline-primary">İncele</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header" style="height: 350px; background:url(./img/suzuki-jimny.jpg) no-repeat; background-size: cover; ">
+                
+              </div>
+              <div class="card-body">
+                <h3 class="card-title pricing-card-title">Suzuki Jimny</h3>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>2022 - 1.400 KM</li>
+                  <li>994.000 ₺</li>
+                </ul>
+                <button onclick="window.open('https://www.sahibinden.com/ilan/vasita-arazi-suv-pickup-suzuki-extrali-suzuki-jimny-2022-model-hatasiz-boyasiz-1035179258/detay','_blank');" type="button" class="w-100 btn btn-lg btn-outline-primary">İncele</button>
+
+              </div>
+            </div>
+          </div>
         
-      <!-- End About Section -->
-
-  <!-- End Portfolio Section -->
-
-  <!-- Contact Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="contact">
-    <h2 class="w3-text-light-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> İstanbul - Turkey</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: erdenizbatuhan@gmail.com</p>
-    </div><br>
-    <p>Let's get in touch. Send me a message Via LinkedIN:</p>
-    <a href="https://www.linkedin.com/in/batuhan-erdeniz/" class="fa fa-linkedin w3-hover-opacity"></a>
-
+    </div>
+</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<section>
+  <div class="row row-cols-1 text-center">
+    <div class="col-md-6"><br><br><h4 class="display-3 text-light">Türkiye'deki Özel ve Nadir araçların buluştuğu yerdesiniz.</h4><br></div>
+    <div style="height: 400px; background:url(https://tcblogprod.wpengine.com/wp-content/uploads/2020/03/Vehicle-Incentives-Guide-03.png); background-size:cover" class="col-md-6"></div>
   </div>
-</div>
-    <!-- Footer -->
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-  <!-- End footer -->
-  </footer>
+</section>
 
-<!-- END PAGE CONTENT -->
+<br>
+<br>
+<br>
+<br>
+      <!--Section: FAQ-->
+      <section>
 
-</body>
+
+      <div class="accordion bg-dark text-light" id="accordionExample">
+        <h2 class="text-light display-4">Sıklıkla Sorulan Sorular</h2>
+        <br>
+        <br>
+        <div class="accordion-item bg-dark text-light">
+          <h2 class="accordion-header bg-dark text-light" id="headingOne">
+            <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Arabanın<span class="text-success">İyisi</span>'ne nasıl ilan verebiliyoruz?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <p> Arabanın <span class="text-success">İyisi</span>'ne "Arabanı Sat! butonuna tıkladıktan sonra formu doldurarak ilan verebilirsiniz. Lakin Arabanın <span class="text-success">İyisi</span>'nde sadece Türkiye'deki özel ve nadir araçlar yer bulabilir. Gönderdiğiniz ilanları tek tek inceledikten sonra eğer onaylanırsa sayfamızda yer alabiliyorsunuz.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item bg-dark text-light">
+          <h2 class="accordion-header bg-dark text-light" id="headingTwo">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Arabanın<span class="text-success">İyisi</span> da hangi filmler var?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item bg-dark text-light">
+          <h2 class="accordion-header bg-dark text-light" id="headingThree">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Arabanın<span class="text-success">İyisi</span> alana gofret veriyor musunuz?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      <!--Section: FAQ-->
+<br><br><br><br><br><br><br>
+      </div>
+      <!-- container bitişi -->
+      </main>
+
+
+      <!--Footer-->
+      <footer class="ftr bg-dark text-light">
+
+    <hr class="m-0" />
+
+    <div class="text-center py-4 align-items-center">
+      <p>Arabanın <span class="text-success">İyisi</span>'ni sosyal medyada takip edin!</p>
+      <a href="#" class="btn btn-primary m-1" role="button"
+        rel="nofollow" target="_blank">
+        <i class="bi bi-youtube"></i>
+      </a>
+      <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow"
+        target="_blank">
+        <i class="bi bi-facebook"></i>
+      </a>
+      <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow"
+        target="_blank">
+        <i class="bi bi-twitter"></i>
+      </a>
+      <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow"
+        target="_blank">
+        <i class="bi bi-github"></i>
+      </a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright:
+      <a class="text-light" href="#">Arabanın İyisi</a>
+    </div>
+    <!-- Copyright -->
+      </footer>
+      <!--Footer-->
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script name = "kaydirinca-opacity-degisir">
+
+document.getElementById("navbar").style.opacity = 0;
+window.addEventListener("scroll", (event) => {
+    let scroll = Number(this.scrollY)
+    console.log(scroll)
+    document.getElementById("navbar").style.opacity = scroll/600;
+});
+    </script>
+  </body>
 </html>
