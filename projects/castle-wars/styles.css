@@ -95,9 +95,23 @@ body{
     float: left;
 }
 #info2{
+    font-size: 1vw;
     margin-top: 10vh;
     float: right;
     height: 40vh;
     width: 10vw;
     background-color: darkcyan;
 }
+#info2-list{
+    margin: 1vw;
+    text-align: right;
+    list-style-type: none;
+    margin-top: 120px;
+    padding: 0;
+}
+
+    
+#fireball{
+    transform: translateX(2px);
+}
+    
