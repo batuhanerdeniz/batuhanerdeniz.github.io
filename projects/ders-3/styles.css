@@ -1,0 +1,110 @@
+body{
+margin: 0;
+background-color: rgb(170, 170, 170);
+}
+
+#navbar{
+    height: 100px;
+    background-color: aquamarine;
+}
+
+#navbar-logo{
+    background: url(https://picsum.photos/70);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 5px;
+    border-style: solid;
+    float: left;
+    margin: 10px;
+}
+
+#linkler{
+    float: right;
+    margin: 35px;
+}
+
+
+/* Story Kısmı */
+.kutu{
+    background: url(https://picsum.photos/80);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5px;
+    border-style: solid;
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+#navbar-story{
+    background-color: rgb(170, 170, 170);
+    height: 100px;
+}
+
+#stories{
+    margin: auto;
+    width: 400px;
+    height: 100px;
+}
+
+a{
+    text-decoration: none;
+}
+
+main{
+    height: 1500px;
+    background-color: rgb(170, 170, 170);
+}
+
+footer{
+    height: 100px;
+    background-color: aquamarine;
+}
+
+#buyukkutu1{
+    margin: 100px;
+    margin-left: 100px;
+    width: 500px;
+    height: 100px;
+    background-color: aqua;
+    padding: 150px;
+}
+
+#kucukkutu1{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+}
+
+/* 2. Kutu */
+#buyukkutu2{
+    margin: auto;
+    width: 400px;
+    height: 400px;
+    background-color: rgb(51, 255, 0);
+}
+
+#kucukkutu2{
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(229, 255, 0);
+}
+
+/* 3. Kutu */
+#buyukkutu3{
+    float: right;
+    width: 400px;
+    height: 400px;
+    background-color: rgb(195, 0, 255);
+    
+}
+
+#kucukkutu3{
+    margin-top: 300px;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(255, 0, 0);
+}
