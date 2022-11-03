@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color:lightgreen;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        input{
+            border: 0;
+            background-color: rgb(36, 92, 73);
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>İhtiyaç Kredisi Hesaplama</h1>
+    <br><br><br>
+    <input type="number" oninput="hesapla()" placeholder="Kredi Tutarını Giriniz" id="tutar">
+    <br><br><br>
+    <input type="number" oninput="hesapla()" placeholder="Vade (Ay)" id="vade">
+    <br><br><br>
+    <input type="number" oninput="hesapladevil()" placeholder="Faiz Oranı (%)" id="faiz">
+    <br><br><br>
+    <p id="hesap"></p>
+
+
+
+
+    <script>
+        function hesapla(){
+        var tutar = Number(document.getElementById("tutar").value)
+        var vade = Number(document.getElementById("vade").value)
+        var faiz = Number(document.getElementById("faiz").value)
+        var aylikTaksit = 0
+        var toplamMaliyet = 0
+        var yanma = 0
+        // sonuc = sonuc
+
+        toplamMaliyet = (tutar+(tutar*(faiz/10))).toFixed(2);
+        aylikTaksit = (toplamMaliyet/vade).toFixed(2);
+        yanma = toplamMaliyet/21
+        yanma = yanma.toFixed(3);
+
+        document.getElementById("hesap").innerHTML = `
+        <p>Aylık Taksit: ${aylikTaksit}₺</p>
+        <br>
+        <p>Toplam Maliyetiniz: ${toplamMaliyet}₺</p>
+        `
+    }
+
+    function hesapladevil(){
+        var tutar = Number(document.getElementById("tutar").value)
+        var vade = Number(document.getElementById("vade").value)
+        var faiz = Number(document.getElementById("faiz").value)
+        var aylikTaksit = 0
+        var toplamMaliyet = 0
+        var yanma = 0
+        // sonuc = sonuc.toFixed(2);
+
+        toplamMaliyet = (tutar+(tutar*(faiz/10))).toFixed(2);
+        aylikTaksit = (toplamMaliyet/vade).toFixed(2);
+        yanma = toplamMaliyet/21
+        yanma = yanma.toFixed(3);
+
+        document.getElementById("hesap").innerHTML = `
+        <p>Aylık Taksit: ${aylikTaksit}₺</p>
+        <br>
+        <p>Toplam Maliyetiniz: ${toplamMaliyet}₺</p>
+
+        <p style="color: red;">Yanma Süreniz: ${yanma} yıl 😈</p>
+        `
+    }
+
+
+    </script>
+</body>
+</html>
