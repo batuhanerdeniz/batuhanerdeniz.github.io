@@ -1,0 +1,27 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body{
+    margin: 0;
+    background-color: #2f2f2f;
+}
+
+#homepage_div {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+
+#homepage_div h1{
+    font-size: 70px;
+    text-align: center;
+    color: #ffcb77
+}
+
+#homepage_div img {
+    position: absolute;
+    bottom: 0;
+}
