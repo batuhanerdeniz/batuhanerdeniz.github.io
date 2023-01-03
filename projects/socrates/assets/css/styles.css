@@ -1,28 +1,47 @@
-*{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700;900&display=swap');
 
 body{
-    margin: 0;
-    background-color: #1b1b1b;
+    background-color: rgb(30, 20, 0);
 }
 
-#homepage_div {
-    width: 100%;
-    height: 99vh;
-    position: relative;
+*{
+font-family: 'Poppins', sans-serif;
 }
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
 
-#homepage_div h1{
-    font-size: 70px;
+#home{
+    margin-top: 150px;
+}
+.main-header{
+    margin-top: 70px;
+    font-weight: 400;
+  }
+.brdr{
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid rgb(255, 149, 0);
+    border-radius: 5px;
+ } 
+ .brdr:hover{
+    text-decoration: none;
+    background-color:rgb(116, 100, 78);
+    padding: 10px;
+    border: 1px solid rgb(255, 149, 0);
+    border-radius: 5px;
+ } 
+
+@media screen and (max-width: 992px) {
+  .main-header{
+    margin-top: 70px;
     text-align: center;
-    color: #ffcb77
+    font-weight: 400;
+    margin-bottom: 50px;
+  }
+  #home{
+    margin-top: 10px;
 }
-
-#homepage_div img {
-    position: absolute;
-    
-    bottom: 0;
 }
