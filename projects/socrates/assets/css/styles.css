@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700;900&display=swap');
+
+body{
+    background-color: rgb(30, 20, 0);
+}
+
+*{
+font-family: 'Poppins', sans-serif;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+#home{
+    margin-top: 150px;
+}
+.main-header{
+    margin-top: 40px;
+    font-weight: 400;
+  }
+.brdr{
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid rgb(255, 149, 0);
+    border-radius: 5px;
+ } 
+ .brdr:hover{
+    text-decoration: none;
+    background-color:rgb(116, 100, 78);
+    padding: 10px;
+    border: 1px solid rgb(255, 149, 0);
+    border-radius: 5px;
+ } 
+
+#courses{margin-top: 300px;}
+#what-we-offer{margin-top: 200px;}
+#contact{
+  margin-top: 200px;
+  margin-bottom: 300px ;
+}
+
+#contact a{
+  margin-top: 100px;
+  text-decoration: none;
+  padding: 3px;
+  background-color: brown;
+}
+
+
+
+
+@media screen and (max-width: 992px) {
+  .main-header{
+    margin-top: 70px;
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 50px;
+  }
+  #home{
+    margin-top: 10px;
+}
+.navbar-brand{
+  font-size: smaller;
+}
+}
