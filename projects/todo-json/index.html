@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+  </head>
+  <body onload="get()">
+    <ul id="todos">
+        
+    </ul>
+    <input type="text" name="" id="todo" placeholder="What to do" />
+    <button onclick="send()">Send</button>
+
+    <script>
+        function get(){
+            fetch('https://modifci-json-server.herokuapp.com/todos')
+            .then((response) => response.json())
+            .then((data) => data.forEach(element => document.getElementById("todos").innerHTML += "<br>" + element.todo ))
+        }
+
+
+      function send() {
+        const data = {"todo" : document.getElementById("todo").value}
+
+        fetch("https://modifci-json-server.herokuapp.com/todos", {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
