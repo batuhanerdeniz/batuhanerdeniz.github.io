@@ -159,7 +159,7 @@ p , a, li{
 }
 
 .welcome-page > .welcome-page__content {
-  font-size: 24px;
+  font-size: 1.5vw;
   padding: 40px 10px 10px 100px;
   height: 70%;
   width: 80%;
@@ -183,6 +183,10 @@ p , a, li{
   color: #f5f5f5;
   border-radius: 30px;
   font-size: 16px;
+}
+
+.welcome-page > .welcome-page__img img {
+  width: 45vw;
 }
 
 @media (max-width: 950px) {
