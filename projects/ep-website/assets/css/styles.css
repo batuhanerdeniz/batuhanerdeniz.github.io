@@ -127,7 +127,7 @@ p , a, li{
     height: 0px;
   }
   .nav > #nav-check:checked ~ .nav-links {
-    height: calc(100vh - 50px);
+    height: calc(40vh - 50px);
     overflow-y: auto;
   }
 }
