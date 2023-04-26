@@ -322,7 +322,6 @@ li {
 @media (max-width: 950px) {
   .cards {
     padding: 0px;
-    gap: 50px;
   }
 
   .cards_header {
@@ -334,59 +333,47 @@ li {
   }
 }
 
-.talep {
-  background-color: rgb(227, 227, 227);
+/* HAKKIMIZDA */
+
+.hakkimizda-icerik {
+  background-color: #e7e7e7;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 100px 0px;
-}
-
-.talep img {
-  width: 50vw;
-}
-
-@media (max-width: 950px) {
-  .talep img {
-    width: 90vw;
-  }
-}
-
-.dr_kutu {
-  background-color: rgb(255, 255, 255);
-  padding: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 50px;
   flex-direction: row;
 }
 
-.kutu_foto img {
-  width: 50vw;
+.hakkimizda-icerik-ters {
+  background-color: #e7e7e7;
+  display: flex;
+  gap: 50px;
+  flex-direction: row;
 }
 
-.ep-flexbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
+.hakkimizda-icerik-yazi {
+  padding: 100px;
+}
+
+.hakkimizda-icerik-foto > img {
+  width: 49.45vw;
 }
 
 @media (max-width: 950px) {
-  .dr_kutu {
-    text-align: center;
-    padding: 50px;
-    gap: 50px;
+  .hakkimizda-icerik {
     flex-direction: column;
+    align-items: center;
   }
 
-  .ep-flexbox img {
+  .hakkimizda-icerik-ters {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .hakkimizda-icerik-yazi {
+    padding: 50px;
+  }
+
+  .hakkimizda-icerik-foto > img {
     width: 95vw;
-  }
-
-  .dr_kutu img {
-    width: 80vw;
   }
 }
 
