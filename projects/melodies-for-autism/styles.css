@@ -1,0 +1,276 @@
+/* Reset some default styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Global styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navigation Bar styles */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.menu-icon {
+    display: none; /* Hidden by default on desktop */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 3px 0;
+    transition: 0.4s;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu li {
+    margin: 0 15px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    color: #ff8800;
+}
+
+/* Hero Section styles */
+.hero {
+    background-image: url('hero-image.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+    padding: 20px 0;
+    margin-top: -80px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero-content {
+   background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 200px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff8800;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #dd6600;
+}
+
+/* About and Programs Section styles */
+.section-left, .section-right {
+    display: flex;
+    align-items: center;
+    padding: 50px 100px;
+    max-width: 1000px;
+    height: 80vh;
+}
+
+.section-left .content, .section-right .content {
+    width: 50%;
+    padding: 20px;
+}
+
+.section-left .content {
+    float: left;
+}
+
+.section-right .content {
+    float: right;
+}
+
+/* Add this to your styles.css file */
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-media {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-media li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.social-media a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+}
+
+.social-media a:hover {
+    color: #ff8800;
+}
+
+.footer-content p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+
+
+
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    /* Navigation Bar styles for mobile */
+    .menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        z-index: 999;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu li {
+        margin: 15px 0;
+    }
+
+    .menu-icon {
+        display: flex; /* Display the hamburger icon */
+    }
+
+    /* Hero Section styles for mobile */
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .hero .cta-button {
+        display: block;
+        margin: 20px auto;
+    }
+
+    /* About and Programs Section styles for mobile */
+    .section-left{
+        width: 90%;
+        padding: 0 10px;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-left .container{
+        width: 90%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .section-left .content{
+        width: 90%;
+    }
+
+    .section-right{
+        width: 90%;
+        padding: 0 10px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-right .container{
+        width: 90%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .section-right .content{
+        width: 90%;
+    }
+
+
+
+    img{
+        width: 70%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .social-media {
+        margin-top: 10px;
+    }
+    
+    .social-media li {
+        margin: 0 5px;
+    }
+}
