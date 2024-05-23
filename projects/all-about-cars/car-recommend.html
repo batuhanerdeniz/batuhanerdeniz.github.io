@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Step Form</title>
+
+<link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+ <div class="car-recommend-multiple-steps">
+    <div class="step active" id="step1">
+        <h2>What is a car to you?</h2>
+        <select id="carType" name="carType" onchange="moveToNextStep(1)">
+          <option value="">Select an option</option>
+          <option value="1" >A device that takes me from A to B</option>
+          <option value="2" >A vehicle that is comfortable</option>
+          <option value="3" >A machine that never breaks</option>
+          <option value="4" >A tool that is fast</option>
+          <option value="5" >A toy to play with</option>
+        </select>
+        <br />
+        <button onclick="window.location.href='index.html'">Back to Home</button>
+      </div>
+      
+      <div class="step" id="step2">
+        <h2>What is your Marital Situation</h2>
+        <select id="maritalSituation">
+            <option value="">Select an option</option>
+            <option value="1">Single</option>
+            <option value="2">Married with no Kids</option>
+            <option value="3">Married with one kid</option>
+            <option value="4">Married with two and more kids</option>
+        </select>
+        <button type="button" onclick="moveToPreviousStep(2)">Previous</button>
+        <button onclick="showResults()">Show results</button>
+        
+      </div>
+      
+      
+      <div class="step" id="step3">
+          <h2>Result</h2>
+          <p>Your inputs</p>
+      
+      
+      </div>
+
+ </div>
+
+
+
+<!-- Additional Steps Here -->
+
+<script>
+  function moveToNextStep(step) {
+    // Validate current step data if needed
+
+    // Hide current step
+    document.getElementById('step' + step).classList.remove('active');
+
+    // Show next step
+    document.getElementById('step' + (step + 1)).classList.add('active');
+  }
+
+  function moveToPreviousStep(step) {
+    // Validate current step data if needed
+
+    // Hide current step
+    document.getElementById('step' + step).classList.remove('active');
+
+    // Show previous step
+    document.getElementById('step' + (step - 1)).classList.add('active');
+  }
+
+// Load JSON data
+let carData =[
+    {
+        "brand": "Mazda",
+        "model": "MX-5",
+        "year": 1999,
+        "price": 10000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4e/1999_Mazda_MX-5_Miata.jpg",
+        "description": "The Mazda MX-5 is a lightweight two-passenger roadster sports car manufactured and marketed by Mazda with a front mid-engine, rear-wheel-drive layout. The convertible is marketed as the Mazda Roadster in Japan, the Mazda MX-5 Miata in North America, and as the Eunos Roadster or Mazda Roadster in Japan.",
+        "horsepower": 140,
+        "torque": 119,
+        "topSpeed": 200,
+        "acceleration": 8.2,
+        "weight": 1060,
+        "drivetrain": "RWD",
+        "bodyStyle": "Roadster",
+        "powerToWeight": 0.1321,
+        "funFactor": 0.95,
+        "practicality": 0.3,
+        "reliability": 0.8
+    },
+    {
+        "brand": "Toyota",
+        "model": "Supra",
+        "year": 1993,
+        "price": 50000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/7/7b/1993_Toyota_Supra_Turbo_%28JZA80%29_coupe_%282015-07-03%29_01.jpg",
+        "description": "The Toyota Supra is a sports car and grand tourer manufactured by Toyota Motor Corporation beginning in 1978. The name 'supra' is derived from Latin, meaning 'above', 'to surpass' or 'go beyond'.",
+        "horsepower": 320,
+        "torque": 315,
+        "topSpeed": 250,
+        "acceleration": 4.6,
+        "weight": 1560,
+        "drivetrain": "RWD",
+        "bodyStyle": "Coupe",
+        "powerToWeight": 0.2051,
+        "funFactor": 0.9,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Nissan",
+        "model": "Skyline GT-R",
+        "year": 1999,
+        "price": 40000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Nissan_Skyline_GT-R_R34_V-Spec_II_N%C3%BCr.jpg",
+        "description": "The Nissan Skyline GT-R is a sports car based on the Nissan Skyline range. The first cars named 'Skyline GT-R' were produced between 1969 and 1972 under the model code KPGC10, and enjoyed legendary success in local Japanese touring car racing.",
+        "horsepower": 330,
+        "torque": 293,
+        "topSpeed": 250,
+        "acceleration": 4.9,
+        "weight": 1560,
+        "drivetrain": "AWD",
+        "bodyStyle": "Coupe",
+        "powerToWeight": 0.2115,
+        "funFactor": 0.8,
+        "practicality": 0.3,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Mitsubishi",
+        "model": "Lancer Evolution",
+        "year": 2006,
+        "price": 15000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Mitsubishi_Lancer_Evolution_IX.jpg",
+        "description": "The Mitsubishi Lancer Evolution, commonly referred to as 'Evo', is a sports sedan based on the Lancer that was manufactured by Japanese manufacturer Mitsubishi Motors from 1992 until 2016.",
+        "horsepower": 286,
+        "torque": 289,
+        "topSpeed": 250,
+        "acceleration": 5.1,
+        "weight": 1560,
+        "drivetrain": "AWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.1833,
+        "funFactor": 0.7,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Subaru",
+        "model": "Impreza WRX STI",
+        "year": 2004,
+        "price": 12000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2004_Subaru_Impreza_WRX_STi.jpg",
+        "description": "The Subaru Impreza (Japanese: スバル・インプレッサ, Hepburn: Subaru Inpuressa) is a compact car that has been manufactured by Subaru since 1992. It was introduced as a replacement for the Leone, with the predecessor's EA series engines replaced by the new EJ series.",
+        "horsepower": 300,
+        "torque": 300,
+        "topSpeed": 250,
+        "acceleration": 5.2,
+        "weight": 1560,
+        "drivetrain": "AWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.1923,
+        "funFactor": 0.7,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Honda",
+        "model": "S2000",
+        "year": 2000,
+        "price": 45000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2000_Honda_S2000.jpg",
+        "description": "The Honda S2000 is an open top sports car that was manufactured by Japanese automobile manufacturer Honda, from 1999 to 2009. First shown as a concept car at the Tokyo Motor Show in 1995, the production version was launched on April 15, 1999 to celebrate the company's 50th anniversary.",
+        "horsepower": 240,
+        "torque": 153,
+        "topSpeed": 250,
+        "acceleration": 5.8,
+        "weight": 1260,
+        "drivetrain": "RWD",
+        "bodyStyle": "Roadster",
+        "powerToWeight": 0.1905,
+        "funFactor": 0.9,
+        "practicality": 0.3,
+        "reliability": 0.8
+    },
+    {
+        "brand": "BMW",
+        "model": "M3",
+        "year": 2003,
+        "price": 40000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2003_BMW_M3_CSL_%28E46%29_coupe_%282015-07-03%29_01.jpg",
+        "description": "The BMW M3 is a high-performance version of the BMW 3 Series, developed by BMW's in-house motorsport division, BMW M GmbH. M3 models have been produced for every generation of 3 Series since the E30 M3 was introduced in 1986.",
+        "horsepower": 360,
+        "torque": 273,
+        "topSpeed": 250,
+        "acceleration": 4.8,
+        "weight": 1560,
+        "drivetrain": "RWD",
+        "bodyStyle": "Coupe",
+        "powerToWeight": 0.2308,
+        "funFactor": 0.9,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Audi",
+        "model": "S4",
+        "year": 2004,
+        "price": 45000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2004_Audi_S4_%28B6%29_sedan_%282015-07-03%29_01.jpg",
+        "description": "The Audi S4 is the high-performance variant of Audi's compact executive car A4. The original Audi S4, built from 1991 until 1994, was a performance-oriented version of Audi's 100 saloon/sedan.",
+        "horsepower": 344,
+        "torque": 302,
+        "topSpeed": 250,
+        "acceleration": 5.3,
+        "weight": 1560,
+        "drivetrain": "AWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.2205,
+        "funFactor": 0.8,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Mercedes-Benz",
+        "model": "C63 AMG",
+        "year": 2008,
+        "price": 85000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2008_Mercedes-Benz_C_63_AMG_%28W204%29_sedan_%282015-07-03%29_01.jpg",
+        "description": "The Mercedes-Benz C-Class is a line of compact executive cars produced by Daimler AG. Introduced in 1993 as a replacement for the 190 (W201) range, the C-Class was the smallest model in the marque's line-up until the W168 A-Class arrived in 1997.",
+        "horsepower": 451,
+        "torque": 443,
+        "topSpeed": 250,
+        "acceleration": 4.1,
+        "weight": 1560,
+        "drivetrain": "RWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.2891,
+        "funFactor": 0.9,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Porsche",
+        "model": "911 Carrera",
+        "year": 2005,
+        "price": 30000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2005_Porsche_911_Carrera_%28996%29_coupe_%282015-07-03%29_01.jpg",
+        "description": "The Porsche 911 (pronounced Nine Eleven or in German: Neunelfer) is a two-door, 2+2 high performance rear-engined sports car. Introduced in September 1964 by Porsche AG of Stuttgart, Germany. It has a rear-mounted flat-six engine and all round independent suspension.",
+        "horsepower": 325,
+        "torque": 273,
+        "topSpeed": 250,
+        "acceleration": 4.8,
+        "weight": 1560,
+        "drivetrain": "RWD",
+        "bodyStyle": "Coupe",
+        "powerToWeight": 0.2083,
+        "funFactor": 0.9,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Corvette",
+        "year": 2002,
+        "price": 25000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2002_Chevrolet_Corvette_%28C5%29_coupe_%282015-07-03%29_01.jpg",
+        "description": "The Chevrolet Corvette, colloquially known as the 'Vette', is a two-door, two-passenger sports car manufactured and marketed by Chevrolet across more than 60 years of production and eight design generations.",
+        "horsepower": 350,
+        "torque": 375,
+        "topSpeed": 250,
+        "acceleration": 4.5,
+        "weight": 1560,
+        "drivetrain": "RWD",
+        "bodyStyle": "Coupe",
+        "powerToWeight": 0.2244,
+        "funFactor": 0.9,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 2005,
+        "price": 15000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2005_Ford_Mustang_GT_%28S197%29_coupe_%282015-07-03%29_01.jpg",
+        "description": "The Ford Mustang is an American car manufactured by Ford. It was originally conceived by Lee Iacocca. The Mustang debuted in 1964 with a price of $2,368, with estimated annual sales of 100K.",
+        "horsepower": 300,
+        "torque": 320,
+        "topSpeed": 250,
+        "acceleration": 5.2,
+        "weight": 1560,
+        "drivetrain": "RWD",
+        "bodyStyle": "Coupe",
+        "powerToWeight": 0.1923,
+        "funFactor": 0.9,
+        "practicality": 0.4,
+        "reliability": 0.7
+    },
+    {
+        "brand": "Toyota",
+        "model": "Prius",
+        "year": 2008,
+        "price": 10000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2008_Toyota_Prius_%28II%29_%282015-07-03%29_01.jpg",
+        "description": "The Toyota Prius is a full hybrid electric automobile developed and manufactured by Toyota since 1997. Initially offered as a 4-door sedan, it has been produced only as a 5-door liftback since 2003.",
+        "horsepower": 134,
+        "torque": 105,
+        "topSpeed": 180,
+        "acceleration": 10.1,
+        "weight": 1560,
+        "drivetrain": "FWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.0859,
+        "funFactor": 0.3,
+        "practicality": 0.9,
+        "reliability": 0.9
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "year": 2005,
+        "price": 8000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2005_Honda_Civic_%28EU%29_%282015-07-03%29_01.jpg",
+        "description": "The Honda Civic is a line of cars manufactured by Honda. Originally a subcompact, the Civic has gone through several generational changes, becoming both larger and more upscale, moving into the compact car segment.",
+        "horsepower": 140,
+        "torque": 128,
+        "topSpeed": 200,
+        "acceleration": 8.2,
+        "weight": 1260,
+        "drivetrain": "FWD",
+        "bodyStyle": "Hatchback",
+        "powerToWeight": 0.1111,
+        "funFactor": 0.6,
+        "practicality": 0.8,
+        "reliability": 0.9
+    },
+    {
+        "brand": "Toyota",
+        "model": "Camry",
+        "year": 2005,
+        "price": 8000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2005_Toyota_Camry_%28XV30%29_%282015-07-03%29_01.jpg",
+        "description": "The Toyota Camry is an automobile sold internationally by the Japanese manufacturer Toyota since 1982, spanning multiple generations. Originally compact in size (narrow-body), later Camry models have grown to fit the mid-size classification (wide-body)—although the two sizes co-existed in the 1990s.",
+        "horsepower": 190,
+        "torque": 200,
+        "topSpeed": 200,
+        "acceleration": 8.2,
+        "weight": 1560,
+        "drivetrain": "FWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.1218,
+        "funFactor": 0.4,
+        "practicality": 0.9,
+        "reliability": 0.9
+    },
+    {
+        "brand": "Honda",
+        "model": "Accord",
+        "year": 2005,
+        "price": 8000,
+        "img": "https://upload.wikimedia.org/wikipedia/commons/4/4b/2005_Honda_Accord_%28EU%29_%282015-07-03%29_01.jpg",
+        "description": "The Honda Accord is a series of automobiles manufactured by Honda since 1976, best known for its four-door sedan variant, which has been one of the best-selling cars in the United States since 1989.",
+        "horsepower": 190,
+        "torque": 200,
+        "topSpeed": 200,
+        "acceleration": 8.2,
+        "weight": 1560,
+        "drivetrain": "FWD",
+        "bodyStyle": "Sedan",
+        "powerToWeight": 0.1218,
+        "funFactor": 0.4,
+        "practicality": 0.9,
+        "reliability": 0.9
+    }
+]
+
+// Function to recommend a car
+function recommendCar(carType, maritalSituation) {
+    // Filter car data based on user's selections
+    let recommendedCar;
+    
+    if (carType === '1' && maritalSituation === '1') {
+        // A device that takes me from A to B and Single
+        recommendedCar = carData.filter(car => car.reliability > 0.7 && car.practicality > 0.7);
+    } else if (carType === '2' && maritalSituation === '1') {
+        // A vehicle that is comfortable and Single
+        recommendedCar = carData.filter(car => car.bodyStyle == 'Sedan' || car.bodyStyle == 'Hatchback');
+    } else if (carType === '3') {
+        // A machine that never breaks and Single
+        recommendedCar = carData.filter(car => car.reliability > 0.8);
+    } else if (carType === '5') {
+        // A machine that never breaks and Single
+        recommendedCar = carData.filter(car => car.brand == 'Mazda');
+    }
+    
+    else if (carType === '4' && maritalSituation === '1') {
+        // A tool that is fast and Single
+        recommendedCar = carData.filter(car => car.topSpeed > 200);
+    } else if (carType === '5' && maritalSituation === '1') {
+        // A toy to play with and Single
+        recommendedCar = carData.filter(car => car.funFactor > 0.8);
+    } else if (carType === '1' && maritalSituation === '2') {
+        // A device that takes me from A to B and Married with no Kids
+        recommendedCar = carData.filter(car => car.reliability > 0.7 && car.practicality > 0.7 && car.bodyStyle === 'Sedan');
+    } else if (carType === '2' && maritalSituation === '2') {
+        // A vehicle that is comfortable and Married with no Kids
+        recommendedCar = carData.filter(car => car.funFactor > 0.7 && car.powerToWeight > 0.2 && car.bodyStyle === 'Sedan');
+    } else if (carType === '1' && maritalSituation === '3') {
+        // A device that takes me from A to B and Married with one kid
+        recommendedCar = carData.filter(car => car.reliability > 0.7 && car.practicality > 0.7 && car.bodyStyle === 'Sedan');
+    } else if (carType === '2' && maritalSituation === '3') {
+        // A vehicle that is comfortable and Married with one kid
+        recommendedCar = carData.filter(car => car.funFactor > 0.7 && car.powerToWeight > 0.2 && car.bodyStyle === 'Sedan');
+    } else if (carType === '1' && maritalSituation === '4') {
+        // A device that takes me from A to B and Married with two and more kids
+        recommendedCar = carData.filter(car => car.reliability > 0.7 && car.practicality > 0.7 && car.bodyStyle === 'Sedan');
+    } else if (carType === '2' && maritalSituation === '4') {
+        // A vehicle that is comfortable and Married with two and more kids
+        recommendedCar = carData.filter(car => car.funFactor > 0.7 && car.powerToWeight > 0.2 && car.bodyStyle === 'Sedan');
+    }
+
+    // Add more conditions based on carType and maritalSituation
+    
+    // Display the recommended car to the user
+    if (recommendedCar && recommendedCar.length > 0) {
+        document.getElementById('step3').innerHTML = `
+            <h2>Result</h2>
+            <p>Recommended Car: ${recommendedCar[0].brand} ${recommendedCar[0].model}</p>
+            <img src="${recommendedCar[0].img}" alt="${recommendedCar[0].brand} ${recommendedCar[0].model}">
+            <p>${recommendedCar[0].description}</p>
+            <button onclick="location.reload()">Try Again</button>
+            <button onclick="window.location.href='index.html'">Back to Home</button>
+        `;
+    } else {
+        document.getElementById('step3').innerHTML = `
+            <h2>Result</h2>
+            <p>No car matches your preferences.</p>
+            <button onclick="location.reload()">Try Again</button>
+            <button onclick="window.location.href='index.html'">Back to Home</button>
+        `;
+    }
+}
+
+// Update the showResults function
+function showResults(){
+    let carType = document.getElementById('carType').value;
+    let maritalSituation = document.getElementById('maritalSituation').value;
+    moveToNextStep(2)
+    
+    recommendCar(carType, maritalSituation);
+}
+</script>
+
+</body>
+</html>
