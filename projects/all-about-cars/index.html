@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="generateRandomCar()">
+    <div class="root">
+        <div class="car-picture">
+            <img id="carPicture" src="https://via.placeholder.com/150" alt="Car Picture">
+        </div>
+        <div class="car-info">
+            <div class="car-name">
+                <h1 id="carName"></h1>
+            </div>
+            <div class="car-year">
+                <h2 id="carYear"></h2>
+            </div>
+            <div class="car-type">
+                <h3 id="carType"></h3>
+            </div>
+            <div class="next-button">
+                <button onclick="generateRandomCar()">Next Random Car</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="randomcargenerator.js"></script>
+</body>
+</html>
