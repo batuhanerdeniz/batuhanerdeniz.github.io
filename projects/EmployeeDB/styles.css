@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    color: #333;
+}
+
+label, select {
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 0.8vw;
+}
+
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8vw; /* Default font size */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-size: 1em;
+}
+
+.red {
+    background-color: #ffcccc; /* Pastel red */
+    color: #660000;
+}
+
+.yellow {
+    background-color: #ffffcc; /* Pastel yellow */
+    color: #666600;
+}
+
+.green {
+    background-color: #ccffcc; /* Pastel green */
+    color: #006600;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+    table {
+        font-size: 3vw; /* Larger font size for mobile */
+    }
+    select {
+        width: 80%;
+        font-size: 3vw;
+    }
+    label {
+        font-size: 3vw;
+    }
+}
