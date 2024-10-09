@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${cert.sertifika}</td>
                 <td>${cert.tarih}</td>
                 <td><a href="${cert.link}" target="_blank">Link</a></td>
+                <td><button>✎</button><button>✖</button></td>
             `;
             detailTableBody.appendChild(row);
         });
