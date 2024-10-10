@@ -1,20 +1,11 @@
 const data = {
-    personel: {
-        işçiler: [
-            { isim: "Ahmet Yılmaz", sertifikalar: [
-                { sertifika: "İş Güvenliği", tarih: "01-12-25", link: "#" },
-                { sertifika: "İlk Yardım", tarih: "01-11-24", link: "#" }
-            ] },
-            { isim: "Mehmet Demir", sertifikalar: [{ sertifika: "İlk Yardım", tarih: "15-11-25", link: "#" }] },
-            { isim: "Ali Veli", sertifikalar: [{ sertifika: "İş Güvenliği", tarih: "10-11-24", link: "#" }] },
-            { isim: "Ayşe Fatma", sertifikalar: [{ sertifika: "İlk Yardım", tarih: "20-09-25", link: "#" }] },
-            { isim: "Hasan Hüseyin", sertifikalar: [{ sertifika: "İş Güvenliği", tarih: "05-08-25", link: "#" }] },
-            { isim: "Zeynep Elif", sertifikalar: [{ sertifika: "İlk Yardım", tarih: "30-10-24", link: "#" }] },
-            { isim: "Murat Can", sertifikalar: [{ sertifika: "İş Güvenliği", tarih: "25-06-24", link: "#" }] }
-        ],
-        işGüvenliği: [
-            { 
-             isim: "Seyhan Erdeniz",
+    personel: [
+            { isim: "Ahmet Yılmaz", gorev: "taşeron" ,sertifikalar: [{ sertifika: "İş Güvenliği", tarih: "01-12-25", link: "#" },{ sertifika: "İlk Yardım", tarih: "01-11-24", link: "#" }] },
+            { isim: "Mehmet Demir",gorev: "taşeron", sertifikalar: [{ sertifika: "İlk Yardım", tarih: "15-11-25", link: "#" }] },
+            { isim: "Ali Veli",gorev: "taşeron", sertifikalar: [{ sertifika: "İş Güvenliği", tarih: "10-11-24", link: "#" }] },
+            { isim: "Ayşe Fatma",gorev: "taşeron", sertifikalar: [{ sertifika: "İlk Yardım", tarih: "20-09-25", link: "#" }] },
+            { isim: "Seyhan Erdeniz",
+             gorev: "İş Güvenliği Uzmanı",
              sertifikalar: [
                 { sertifika: "SGK Girişi", tarih: "01-01-25", link: "#" },
                 { sertifika: "Sağlık Raporu", tarih: "15-12-25", link: "#" },
@@ -33,6 +24,7 @@ const data = {
             ] },
             { 
                 isim: "Emre Yılmaz",
+                gorev: "İş Güvenliği Uzmanı",
                 sertifikalar: [
                    { sertifika: "SGK Girişi", tarih: "01-11-24", link: "#" },
                    { sertifika: "Sağlık Raporu", tarih: "15-12-24", link: "#" },
@@ -50,29 +42,14 @@ const data = {
    
                ] },
             
-        
-        ],
-        mühendisler: [
-            { isim: "Fatma Çelik", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "01-10-23", link: "#" }] },
-            { isim: "Ahmet Demir", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "15-09-24", link: "#" }] },
-            { isim: "Mehmet Kara", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "10-08-23", link: "#" }] },
-            { isim: "Ali Yılmaz", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "20-07-24", link: "#" }] },
-            { isim: "Zeynep Can", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "05-06-23", link: "#" }] },
-            { isim: "Elif Hüseyin", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "30-05-24", link: "#" }] }
-        ]
-    },
-    isMakineleri: {
-        ekskavatörler: [
-            { isim: "Ekskavatör 1", sertifikalar: [{ sertifika: "Bakım Sertifikası", tarih: "01-12-24", link: "#" }] },
-            { isim: "Ekskavatör 2", sertifikalar: [{ sertifika: "Kullanım Sertifikası", tarih: "01-11-23", link: "#" }] },
-            { isim: "Ekskavatör 3", sertifikalar: [{ sertifika: "Bakım Sertifikası", tarih: "30-10-24", link: "#" }] },
-            { isim: "Ekskavatör 4", sertifikalar: [{ sertifika: "Kullanım Sertifikası", tarih: "20-09-25", link: "#" }] },
-            { isim: "Ekskavatör 5", sertifikalar: [{ sertifika: "Bakım Sertifikası", tarih: "05-08-24", link: "#" }] },
-            { isim: "Ekskavatör 6", sertifikalar: [{ sertifika: "Kullanım Sertifikası", tarih: "30-07-25", link: "#" }] },
-            { isim: "Ekskavatör 7", sertifikalar: [{ sertifika: "Bakım Sertifikası", tarih: "25-06-24", link: "#" }] }
-        ],
-        diğer: [
+            { isim: "Fatma Çelik", gorev: "mühendis", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "01-10-23", link: "#" }] },
+            { isim: "Ahmet Demir", gorev: "mühendis", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "15-09-24", link: "#" }] },
+            { isim: "Mehmet Kara", gorev: "mühendis", sertifikalar: [{ sertifika: "Mühendislik Sertifikası", tarih: "10-08-23", link: "#" }] },
+            ]
+    ,   
+    is_makineleri: [
             { isim: "FALSH 2500", 
+              tip: "Yıkama Makinesi",
               sertifikalar: [
                 { sertifika: "Sigorta", tarih: "01-12-24", link: "#" },
                 { sertifika: "Fenni Muayene", tarih: "01-11-23", link: "#" },
@@ -81,6 +58,7 @@ const data = {
 
             ] },
             { isim: "LSS EDECHOFF 0182016", 
+                tip: "Yıkama Makinesi",
                 sertifikalar: [
                   { sertifika: "Yıllık Araç Muayenesi", tarih: "01-12-24", link: "#" },
                   { sertifika: "Trafik Sigortası", tarih: "01-11-23", link: "#" },
@@ -90,14 +68,16 @@ const data = {
                   { sertifika: "6 Aylık Bakımlar", tarih: "30-10-24", link: "#" },
                   { sertifika: "Kullanım Talimatı", tarih: "05-08-24", link: "#" },
   
-              ] },
+              ] }
 
 
-        ]
-    },
-    ekipmanlar: {
-        sapanlar: [
+        ],
+
+    ekipmanlar: [
+
+
             { isim: "SAPAN 08052200012",
+                tip: "Sapan",
               sertifikalar: [
                 { sertifika: "Yıllık Test Raporu", tarih: "01-12-25", link: "./Sapan 08052200012.pdf" },
                 { sertifika: "3 Aylık Bakımlar", tarih: "15-11-24", link: "#" },
@@ -105,14 +85,13 @@ const data = {
                 { sertifika: "Kullanım – Bakım Talimatı", tarih: "20-09-24", link: "#" },
                 { sertifika: "Fenni Muayene", tarih: "05-08-25", link: "#" },
             ] },
-            ],
-        yaşamDestekUnitesi: [
-            { isim: "Yaşam Destek Ünitesi", sertifikalar: [
-                { sertifika: "Kontrol Raporu", tarih: "05-03-21", link: "./LSS Yaşam Destek Üniteleri Muayene Raporları.pdf" }] },
-            
-        ],
-        trafolar: [
+            { isim: "Yaşam Destek Ünitesi 1",
+              tip: "Yaşam Destek Ünitesi",
+                sertifikalar: [
+                { sertifika: "Kontrol Raporu", tarih: "05-03-21", link: "./LSS Yaşam Destek Üniteleri Muayene Raporları.pdf" }
+            ] },
             { isim: "24V Trafo",
+                tip: "Trafo",
               sertifikalar: [
                 { sertifika: "Yıllık Test Raporu", tarih: "01-12-23", link: "#" },
                 { sertifika: "3 Aylık Bakımlar", tarih: "09-11-24", link: "#" },
@@ -121,20 +100,11 @@ const data = {
                 { sertifika: "Fenni Muayene", tarih: "05-08-25", link: "#" },
             ] },
             
-        ]
-    },
-    koruyucuDonanimlar: {
-        baret: [
-            { isim: "Baret 1", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "01-12-23", link: "#" }] },
-            { isim: "Baret 2", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "15-11-23", link: "#" }] },
-            { isim: "Baret 3", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "10-10-24", link: "#" }] },
-            { isim: "Baret 4", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "20-09-23", link: "#" }] },
-            { isim: "Baret 5", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "05-08-24", link: "#" }] },
-            { isim: "Baret 6", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "30-07-23", link: "#" }] },
-            { isim: "Baret 7", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "25-06-24", link: "#" }] }
         ],
-        dedektör: [
-            { isim: "ARPD-0398 Dedektör",
+    koruyucuDonanimlar: 
+        [{ isim: "Baret 1", tip:"Baret", sertifikalar: [{ sertifika: "Güvenlik Sertifikası", tarih: "01-12-23", link: "#" }] },
+         { isim: "ARPD-0398 Dedektör",
+            tip: "Dedektör",
               sertifikalar: [
                 { sertifika: "Kalibrasyon Raporu", tarih: "01-12-24", link: "./YAKA DEDEKTÖR 6001_2023.pdf" },
                 { sertifika: "CE Sertifika", tarih: "10-10-24", link: "#" },
@@ -143,5 +113,5 @@ const data = {
             
             ] },
            ],
-    }
+
 };

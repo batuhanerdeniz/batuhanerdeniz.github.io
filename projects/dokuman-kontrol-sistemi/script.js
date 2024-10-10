@@ -1,51 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mainCategorySelect = document.getElementById("mainCategory");
-  const subCategoryContainer = document.getElementById("subCategoryContainer");
-  const subCategorySelect = document.getElementById("subCategory");
   const itemTableBody = document.getElementById("itemTable").querySelector("tbody");
   const modal = document.getElementById("modal");
   const closeModal = document.querySelector(".close");
   const detailTableBody = document.getElementById("detailTable").querySelector("tbody");
   const modalTitle = document.querySelector(".modal-content h2");
+  const tableHeaders = document.querySelectorAll("#itemTable th");
+
+  let currentItems = [];
 
   mainCategorySelect.addEventListener("change", () => {
     const selectedMainCategory = mainCategorySelect.value;
-    subCategoryContainer.style.display = selectedMainCategory
-      ? "block"
-      : "none";
-    subCategorySelect.innerHTML =
-      '<option value="">--Alt Kategori Seçiniz--</option>';
-
-    if (selectedMainCategory) {
-      const subCategories = Object.keys(data[selectedMainCategory]);
-      subCategories.forEach((subCategory) => {
-        let option = document.createElement("option");
-        option.value = subCategory;
-        option.textContent = subCategory;
-        subCategorySelect.appendChild(option);
-      });
-    }
-  });
-
-  subCategorySelect.addEventListener("change", () => {
-    const selectedMainCategory = mainCategorySelect.value;
-    const selectedSubCategory = subCategorySelect.value;
     itemTableBody.innerHTML = ""; // Clear previous entries
 
-    if (selectedSubCategory) {
-      const items = data[selectedMainCategory][selectedSubCategory];
-      items.forEach((item) => {
-        let row = document.createElement("tr");
-        row.innerHTML = `
-                    <td>${item.isim}</td>
-                    <td class="${getStatusClass(item.sertifikalar)}"></td>
-                `;
-        row.addEventListener("click", () => {
-          showModal(item.isim, item.sertifikalar);
-        });
-        itemTableBody.appendChild(row);
-      });
+    if (data[selectedMainCategory]) {
+      // Collect items from the selected category
+      currentItems = data[selectedMainCategory];
     }
+
+    renderTable(currentItems);
+  });
+
+  tableHeaders.forEach((header, index) => {
+    header.addEventListener("click", () => {
+      sortTable(index);
+    });
   });
 
   closeModal.addEventListener("click", () => {
@@ -58,16 +37,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  function renderTable(items) {
+    itemTableBody.innerHTML = ""; // Clear previous entries
+    items.forEach((item) => {
+      let row = document.createElement("tr");
+      row.innerHTML = `
+                <td>${item.isim}</td>
+                <td>${mainCategorySelect.value === "personel" ? item.gorev : item.tip}</td>
+                <td class="${getStatusClass(item.sertifikalar)}"></td>
+            `;
+      row.addEventListener("click", () => {
+        showModal(item.isim, item.sertifikalar);
+      });
+      itemTableBody.appendChild(row);
+    });
+  }
+
+  function sortTable(columnIndex) {
+    const rows = Array.from(itemTableBody.querySelectorAll("tr"));
+    const sortedRows = rows.sort((a, b) => {
+      const aText = a.children[columnIndex].textContent.trim();
+      const bText = b.children[columnIndex].textContent.trim();
+      return aText.localeCompare(bText);
+    });
+    itemTableBody.innerHTML = "";
+    sortedRows.forEach(row => itemTableBody.appendChild(row));
+  }
+
   function showModal(name, certificates) {
     modalTitle.textContent = `${name}`;
     detailTableBody.innerHTML = ""; // Clear previous entries
     certificates.forEach((cert) => {
       let row = document.createElement("tr");
       row.innerHTML = `
-                <td>${cert.sertifika}</td>
-                <td class="${getStatusClass([cert])}"><a href="${cert.link}" target="_blank">${cert.tarih}</a></td>
-                <td><button>✎</button><button>✖</button></td>
-            `;
+            <td>${cert.sertifika}</td>
+            <td class="${getStatusClass([cert])}"><a href="${cert.link}" target="_blank">${cert.tarih}</a></td>
+            <td><button>✎</button><button>✖</button></td>
+        `;
       detailTableBody.appendChild(row);
     });
     modal.style.display = "block";
