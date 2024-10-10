@@ -7,6 +7,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTitle = document.querySelector(".modal-content h2");
   const tableHeaders = document.querySelectorAll("#itemTable th");
 
+  const loginButton = document.getElementById("login-button");
+  const loginContainer = document.getElementById("login-container");
+  const mainContent = document.getElementById("main-content");
+  const errorMessage = document.getElementById("error-message");
+
+  const correctUsername = "rasim";
+  const correctPassword = "123456";
+
+  loginButton.addEventListener("click", () => {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (username === correctUsername && password === correctPassword) {
+      loginContainer.style.display = "none";
+      mainContent.style.display = "block";
+    } else {
+      errorMessage.style.display = "block";
+    }
+  });
+
   let currentItems = [];
 
   mainCategorySelect.addEventListener("change", () => {
@@ -69,9 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
     detailTableBody.innerHTML = ""; // Clear previous entries
     certificates.forEach((cert) => {
       let row = document.createElement("tr");
+      const linkStyle = (cert.link && cert.link !== "#" && cert.link !== "") ? "font-weight: bold;" : "";
       row.innerHTML = `
             <td>${cert.sertifika}</td>
-            <td class="${getStatusClass([cert])}"><a href="${cert.link}" target="_blank">${cert.tarih}</a></td>
+            <td class="${getStatusClass([cert])}"><a href="${cert.link}" target="_blank" style="${linkStyle}">${cert.tarih}</a></td>
             <td><button>✎</button><button>✖</button></td>
         `;
       detailTableBody.appendChild(row);

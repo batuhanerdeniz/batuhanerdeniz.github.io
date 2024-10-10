@@ -49,7 +49,7 @@ const data = {
     ,   
     is_makineleri: [
             { isim: "FALSH 2500", 
-              tip: "Yıkama Makinesi",
+              tip: "Endüstriyel Yıkama",
               sertifikalar: [
                 { sertifika: "Sigorta", tarih: "01-12-24", link: "#" },
                 { sertifika: "Fenni Muayene", tarih: "01-11-23", link: "#" },
@@ -57,8 +57,8 @@ const data = {
                 { sertifika: "Kullanım Talimatı", tarih: "05-08-24", link: "#" },
 
             ] },
-            { isim: "LSS EDECHOFF 0182016", 
-                tip: "Yıkama Makinesi",
+            { isim: "LSS EDELHOFF 0182016", 
+                tip: "Katalist",
                 sertifikalar: [
                   { sertifika: "Yıllık Araç Muayenesi", tarih: "01-12-24", link: "#" },
                   { sertifika: "Trafik Sigortası", tarih: "01-11-23", link: "#" },
