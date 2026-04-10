@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building an End-to-End CRUD + Reporting App with the Microsoft Stack | BatuBI</title>
+<meta name="description" content="How I built a complete data solution using SQL Server, SSAS, Power BI, and Power Apps — from API ingestion to interactive dashboards and user-editable data.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --bg-card: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #5c5c5c;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --accent-green: #059669;
+    --accent-green-soft: #d1fae5;
+    --accent-amber: #d97706;
+    --accent-amber-soft: #fef3c7;
+    --accent-purple: #7c3aed;
+    --accent-purple-soft: #ede9fe;
+    --border: #e5e5e5;
+    --code-bg: #0f172a;
+    --code-text: #e2e8f0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f0f;
+      --bg-card: #1a1a1a;
+      --text: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --accent: #60a5fa;
+      --accent-soft: #1e3a5f;
+      --accent-green: #34d399;
+      --accent-green-soft: #064e3b;
+      --accent-amber: #fbbf24;
+      --accent-amber-soft: #78350f;
+      --accent-purple: #a78bfa;
+      --accent-purple-soft: #3b1f7e;
+      --border: #2a2a2a;
+      --code-bg: #0a0e1a;
+      --code-text: #e2e8f0;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Satoshi', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 17px;
+  }
+
+  /* NAV */
+  nav {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 28px; }
+  nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+  }
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+  }
+  .tag-blue { background: var(--accent-soft); color: var(--accent); }
+  .tag-green { background: var(--accent-green-soft); color: var(--accent-green); }
+  .tag-purple { background: var(--accent-purple-soft); color: var(--accent-purple); }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+  .meta {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .author-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent);
+  }
+  .meta-sep { color: var(--border); }
+
+  /* ARTICLE */
+  article {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  article h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin: 52px 0 16px;
+    letter-spacing: -0.5px;
+  }
+  article h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 36px 0 12px;
+  }
+  article p {
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  article strong {
+    font-weight: 700;
+  }
+
+  /* ARCHITECTURE DIAGRAM */
+  .arch-diagram {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 24px;
+    margin: 32px 0;
+    overflow-x: auto;
+  }
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    min-width: 500px;
+  }
+  .arch-node {
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 110px;
+    line-height: 1.3;
+  }
+  .arch-node small {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    margin-top: 3px;
+    opacity: 0.75;
+  }
+  .n-api { background: var(--accent-amber-soft); color: var(--accent-amber); }
+  .n-sql { background: var(--accent-soft); color: var(--accent); }
+  .n-ssas { background: var(--accent-purple-soft); color: var(--accent-purple); }
+  .n-pbi { background: var(--accent-green-soft); color: var(--accent-green); }
+  .n-pa { background: var(--accent-amber-soft); color: var(--accent-amber); }
+  .arch-arrow {
+    font-size: 20px;
+    color: var(--text-secondary);
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+  .arch-split {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding-left: 8px;
+  }
+  .arch-branch {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* CODE BLOCKS */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 20px 24px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin: 20px 0 28px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+  p code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  .callout-green {
+    border-left-color: var(--accent-green);
+    background: var(--accent-green-soft);
+  }
+
+  /* NUMBERED STEPS */
+  .step {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+  .step-content strong { display: block; margin-bottom: 4px; }
+
+  /* FOOTER */
+  .article-footer {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+  .cta-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+  }
+  .cta-box h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .cta-box p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity 0.2s;
+  }
+  .cta-btn:hover { opacity: 0.85; }
+
+  /* DIVIDER */
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* OL/UL inside article */
+  article ol, article ul {
+    padding-left: 24px;
+    margin-bottom: 20px;
+  }
+  article li {
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">batu<span>bi</span></a>
+  <ul>
+    <li><a href="/">Blog</a></li>
+    <li><a href="/portfolio">Portfolio</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="https://linkedin.com/in/batuhanerdeniz" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="tag-row">
+    <span class="tag tag-blue">Power BI</span>
+    <span class="tag tag-green">Power Apps</span>
+    <span class="tag tag-purple">SSAS</span>
+  </div>
+  <h1>How I Built an End-to-End CRUD + Reporting App Using Only the Microsoft Stack</h1>
+  <p class="subtitle">API ingestion, SQL Server, SSAS tabular modeling, Power BI dashboards, and Power Apps for data editing — one unified architecture, zero third-party tools.</p>
+  <div class="meta">
+    <div class="author-pic">BE</div>
+    <span>Batuhan Erdeniz</span>
+    <span class="meta-sep">|</span>
+    <span>April 10, 2026</span>
+    <span class="meta-sep">|</span>
+    <span>6 min read</span>
+  </div>
+</header>
+
+<article>
+
+<h2>The problem</h2>
+<p>At my company, we had a classic data challenge: operational data coming from a TMS (Transportation Management System) API that needed to be both <strong>visualized</strong> in executive dashboards and <strong>editable</strong> by operations teams. Think of it like this — logistics managers needed to see real-time KPIs, but they also needed to correct, annotate, and update records that the API got wrong or missed.</p>
+<p>Most teams solve this with two completely separate systems: a BI tool for reporting and some custom web app for data entry. That means duplicate data, sync issues, and twice the maintenance. I wanted a single architecture where both reporting and CRUD operations feed from the same source of truth.</p>
+
+<h2>The architecture</h2>
+<p>Here's what I built — entirely with Microsoft tools, no Python scripts, no custom backends, no third-party ETL:</p>
+
+<div class="arch-diagram">
+  <div class="arch-flow">
+    <div class="arch-node n-api">API<small>TMS endpoint</small></div>
+    <span class="arch-arrow">→</span>
+    <div class="arch-node n-sql">SQL Server<small>Single source of truth</small></div>
+    <span class="arch-arrow">→</span>
+    <div class="arch-split">
+      <div class="arch-branch">
+        <span class="arch-arrow">→</span>
+        <div class="arch-node n-ssas">SSAS<small>Tabular model</small></div>
+        <span class="arch-arrow">→</span>
+        <div class="arch-node n-pbi">Power BI<small>Reporting</small></div>
+      </div>
+      <div class="arch-branch">
+        <span class="arch-arrow">→</span>
+        <div class="arch-node n-pa">Power Apps<small>CRUD / editing</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>The beauty of this design is that <strong>SQL Server is the single source of truth</strong>. SSAS reads from it, Power Apps writes to it. When a user edits data in Power Apps, the next SSAS process picks it up, and Power BI reflects the change. No sync conflicts, no duplicate databases.</p>
+
+<h2>How each layer works</h2>
+
+<h3>Layer 1: API → SQL Server</h3>
+<p>The TMS API serves JSON data about shipments, packages, and transfer histories. I use a SQL Agent Job that runs a PowerShell script via <code>xp_cmdshell</code> to call the API, parse the JSON, and insert into staging tables. From there, a merge procedure loads the data into the production tables.</p>
+
+<pre>-- SQL Agent Job calls this on a schedule
+-- PowerShell fetches from TMS API, parses JSON
+-- Inserts into staging table
+-- MERGE procedure handles upserts to production
+
+MERGE dwhPickaTMS.FactPackageTransfer AS target
+USING tmpPickaTMS.tblOrderPackageTransferHistory AS source
+ON target.ID = source.ID
+WHEN MATCHED THEN UPDATE SET ...
+WHEN NOT MATCHED THEN INSERT ...;</pre>
+
+<div class="callout">
+  <strong>Why not use SSIS?</strong> For API-based sources, SSIS adds unnecessary complexity. A lightweight PowerShell script scheduled via SQL Agent Job is simpler to maintain and debug. Save SSIS for database-to-database ETL where it truly shines.
+</div>
+
+<h3>Layer 2: SQL Server → SSAS Tabular</h3>
+<p>SSAS sits on top of SQL Server as an in-memory analytical engine. It reads the production tables, applies the data model (relationships, hierarchies, measures), and serves as the semantic layer for Power BI.</p>
+<p>Key decision: I defined my DAX measures in the SSAS model, not in Power BI. This means any Power BI report connected to this model gets the same business logic — no inconsistent calculations across reports.</p>
+
+<pre>-- SSAS processing via SQL Agent Job (scheduled after ETL completes)
+-- Uses XMLA command to process the tabular model
+
+&lt;Process xmlns="..."&gt;
+  &lt;Type&gt;ProcessFull&lt;/Type&gt;
+  &lt;Object&gt;
+    &lt;DatabaseID&gt;LogisticsModel&lt;/DatabaseID&gt;
+    &lt;TableID&gt;FactPackageTransfer&lt;/TableID&gt;
+  &lt;/Object&gt;
+&lt;/Process&gt;</pre>
+
+<h3>Layer 3a: SSAS → Power BI (Reporting)</h3>
+<p>Power BI connects to SSAS via a Live Connection. This is important — it means Power BI doesn't import any data. It queries SSAS on the fly, which means reports always show the latest processed data without needing a separate refresh schedule.</p>
+<p>The dashboards I built include real-time logistics KPIs, package transfer tracking across locations, and operational monitoring with automated alerts.</p>
+
+<h3>Layer 3b: SQL Server → Power Apps (CRUD)</h3>
+<p>This is where it gets interesting. Power Apps connects directly to the SQL Server tables via the on-premises data gateway. Operations teams get a clean, mobile-friendly form where they can:</p>
+<ul>
+  <li>View current records from the same tables SSAS reads</li>
+  <li>Edit incorrect shipment data (wrong status codes, missing locations)</li>
+  <li>Add manual entries for records the API missed</li>
+  <li>Delete duplicate or test records</li>
+</ul>
+<p>When they save changes, it writes directly to SQL Server. The next SSAS process cycle picks up the changes, and Power BI reflects them. The feedback loop is complete.</p>
+
+<h2>The scheduling chain</h2>
+<p>Timing matters. Here's how I sequenced everything with SQL Agent Jobs:</p>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <strong>API fetch (every 30 min)</strong>
+    PowerShell script calls TMS API, loads staging tables, runs MERGE to production.
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <strong>SSAS process (triggered after ETL)</strong>
+    XMLA command processes the affected tables. Only runs after Step 1 succeeds — chained via Job Steps with "On Success" conditions.
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <strong>Power BI auto-refreshes</strong>
+    Since it's a Live Connection to SSAS, no separate refresh needed. Users see updated data immediately after SSAS processes.
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <strong>Power Apps writes happen in real-time</strong>
+    User edits go to SQL instantly. They're picked up in the next SSAS process cycle (within 30 min max).
+  </div>
+</div>
+
+<h2>Lessons learned</h2>
+
+<p><strong>Keep DAX in SSAS, not Power BI.</strong> If you define measures in Power BI Desktop, they're locked to that one report. Put them in SSAS and every report inherits the same logic. This is non-negotiable for governance.</p>
+
+<p><strong>The on-premises gateway is the weak link.</strong> Power Apps needs it to reach your SQL Server. It works fine, but it's one more thing that can go down. Monitor it. Set up alerts.</p>
+
+<p><strong>Don't skip the staging layer.</strong> I use a truncate-and-load staging pattern before MERGE into production. It adds a step, but it means I can inspect and debug data quality issues before they hit the model.</p>
+
+<p><strong>Power Apps isn't pretty, but it's fast.</strong> Coming from a React frontend background, Power Apps feels limiting. But I built a fully functional CRUD interface in a day. For internal tools, speed of delivery beats pixel-perfect design every time.</p>
+
+<div class="callout callout-green">
+  <strong>The bottom line:</strong> You don't need a custom web app, a separate database, or Python scripts to build a complete data solution with read AND write capabilities. The Microsoft stack — SQL Server, SSAS, Power BI, and Power Apps — handles it end-to-end. The key is making SQL Server the single source of truth for everything.
+</div>
+
+<hr>
+
+<h2>What's next</h2>
+<p>I'm planning to add Power Automate into this architecture to trigger notifications when specific data thresholds are hit — for example, alerting the logistics team when packages are stuck at a location for too long. That would complete the full Power Platform integration: Power BI for seeing, Power Apps for doing, and Power Automate for reacting.</p>
+
+<p>If you're building something similar or have questions about any of these layers, feel free to reach out on <a href="https://linkedin.com/in/batuhanerdeniz" style="color:var(--accent)">LinkedIn</a>. I'm always happy to talk architecture.</p>
+
+</article>
+
+<div class="article-footer">
+  <div class="cta-box">
+    <h3>Want to see the dashboards in action?</h3>
+    <p>Check out my Power BI portfolio with live embedded reports.</p>
+    <a href="/portfolio" class="cta-btn">View Portfolio</a>
+  </div>
+</div>
+
+</body>
+</html>
