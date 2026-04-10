@@ -412,12 +412,7 @@
 -- PowerShell fetches from TMS API, parses JSON
 -- Inserts into staging table
 -- MERGE procedure handles upserts to production
-
-MERGE dwhPickaTMS.FactPackageTransfer AS target
-USING tmpPickaTMS.tblOrderPackageTransferHistory AS source
-ON target.ID = source.ID
-WHEN MATCHED THEN UPDATE SET ...
-WHEN NOT MATCHED THEN INSERT ...;</pre>
+;</pre>
 
 <div class="callout">
   <strong>Why not use SSIS?</strong> For API-based sources, SSIS adds unnecessary complexity. A lightweight PowerShell script scheduled via SQL Agent Job is simpler to maintain and debug. Save SSIS for database-to-database ETL where it truly shines.
@@ -433,8 +428,8 @@ WHEN NOT MATCHED THEN INSERT ...;</pre>
 &lt;Process xmlns="..."&gt;
   &lt;Type&gt;ProcessFull&lt;/Type&gt;
   &lt;Object&gt;
-    &lt;DatabaseID&gt;LogisticsModel&lt;/DatabaseID&gt;
-    &lt;TableID&gt;FactPackageTransfer&lt;/TableID&gt;
+    &lt;DatabaseID&gt;Model&lt;/DatabaseID&gt;
+    &lt;TableID&gt;FactTable&lt;/TableID&gt;
   &lt;/Object&gt;
 &lt;/Process&gt;</pre>
 
