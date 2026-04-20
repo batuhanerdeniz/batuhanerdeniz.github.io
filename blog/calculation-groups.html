@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculation Groups in Power BI: Stop Writing the Same DAX Twice | BatuBI</title>
+<meta name="description" content="How Calculation Groups eliminate redundant DAX measures and make your Power BI models cleaner, faster, and easier to maintain.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --bg-card: #ffffff;
+    --bg3: #f3f1ec;
+    --text: #1a1a1a;
+    --text2: #5c5c5c;
+    --text3: #8a8a8a;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --green: #059669;
+    --green-soft: #d1fae5;
+    --amber: #d97706;
+    --amber-soft: #fef3c7;
+    --purple: #7c3aed;
+    --purple-soft: #ede9fe;
+    --red: #dc2626;
+    --red-soft: #fee2e2;
+    --border: #e5e5e5;
+    --code-bg: #0f172a;
+    --code-text: #e2e8f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --bg3: #1a1a1a;
+      --text: #e5e5e5;
+      --text2: #a3a3a3;
+      --text3: #6b6b6b;
+      --accent: #60a5fa;
+      --accent-soft: #1e3a5f;
+      --green: #34d399;
+      --green-soft: #064e3b;
+      --amber: #fbbf24;
+      --amber-soft: #78350f;
+      --purple: #a78bfa;
+      --purple-soft: #3b1f7e;
+      --red: #f87171;
+      --red-soft: #450a0a;
+      --border: #262626;
+      --code-bg: #0a0e1a;
+      --code-text: #e2e8f0;
+    }
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Satoshi',sans-serif;
+    background:var(--bg);color:var(--text);
+    line-height:1.75;font-size:17px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+
+  nav{max-width:740px;margin:0 auto;padding:28px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-weight:900;font-size:20px;color:var(--text);text-decoration:none;letter-spacing:-0.5px;}
+  .logo span{color:var(--accent);}
+  nav ul{list-style:none;display:flex;gap:28px;}
+  nav a{text-decoration:none;color:var(--text2);font-size:14px;font-weight:500;transition:color .2s;}
+  nav a:hover{color:var(--text);}
+
+  .hero{max-width:740px;margin:0 auto;padding:60px 24px 40px;}
+  .tag-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .tag{font-size:12px;font-weight:500;padding:4px 10px;border-radius:4px;letter-spacing:.3px;}
+  .tag-blue{background:var(--accent-soft);color:var(--accent);}
+  .tag-purple{background:var(--purple-soft);color:var(--purple);}
+  .tag-amber{background:var(--amber-soft);color:var(--amber);}
+
+  h1{
+    font-family:'Instrument Serif',serif;
+    font-size:clamp(32px,5vw,46px);font-weight:400;
+    line-height:1.15;letter-spacing:-1px;margin-bottom:16px;
+  }
+  .subtitle{color:var(--text2);font-size:18px;line-height:1.6;max-width:600px;}
+  .meta{margin-top:28px;display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
+  .author-pic{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--accent-soft);display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;color:var(--accent);
+  }
+  .meta-sep{color:var(--border);}
+
+  article{max-width:740px;margin:0 auto;padding:0 24px 80px;}
+  article h2{
+    font-family:'Instrument Serif',serif;
+    font-size:28px;font-weight:400;margin:52px 0 16px;letter-spacing:-.5px;
+  }
+  article h3{font-size:18px;font-weight:700;margin:36px 0 12px;}
+  article p{margin-bottom:20px;color:var(--text);}
+  article strong{font-weight:700;}
+  article ul,article ol{padding-left:24px;margin-bottom:20px;}
+  article li{margin-bottom:8px;}
+
+  pre{
+    background:var(--code-bg);color:var(--code-text);
+    padding:20px 24px;border-radius:10px;overflow-x:auto;
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;
+    line-height:1.65;margin:20px 0 28px;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  code{font-family:'JetBrains Mono',monospace;font-size:14px;}
+  p code{
+    background:var(--accent-soft);color:var(--accent);
+    padding:2px 7px;border-radius:4px;font-size:14px;
+  }
+
+  .callout{
+    border-left:3px solid var(--accent);
+    background:var(--accent-soft);
+    padding:16px 20px;border-radius:0 8px 8px 0;
+    margin:24px 0;font-size:15px;
+  }
+  .callout-green{border-left-color:var(--green);background:var(--green-soft);}
+  .callout-red{border-left-color:var(--red);background:var(--red-soft);}
+
+  /* Before/After comparison */
+  .compare{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+    margin:24px 0 32px;
+  }
+  .compare-col{
+    background:var(--bg-card);border:1px solid var(--border);
+    border-radius:10px;padding:20px;overflow:hidden;
+  }
+  .compare-col h4{
+    font-size:13px;font-weight:700;text-transform:uppercase;
+    letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;
+    border-bottom:1px solid var(--border);
+  }
+  .compare-col.bad h4{color:var(--red);}
+  .compare-col.good h4{color:var(--green);}
+  .compare-col pre{
+    margin:0;font-size:12.5px;padding:14px;
+    border:none;
+  }
+
+  .measure-count{
+    display:flex;align-items:center;gap:12px;
+    margin:8px 0 0;font-size:14px;
+  }
+  .count-badge{
+    font-weight:700;font-size:24px;
+    padding:4px 14px;border-radius:6px;
+  }
+  .count-bad{background:var(--red-soft);color:var(--red);}
+  .count-good{background:var(--green-soft);color:var(--green);}
+
+  hr{border:none;height:1px;background:var(--border);margin:48px 0;}
+
+  .article-footer{max-width:740px;margin:0 auto;padding:0 24px 60px;}
+  .cta-box{
+    background:var(--bg-card);border:1px solid var(--border);
+    border-radius:12px;padding:32px;text-align:center;
+  }
+  .cta-box h3{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400;margin-bottom:8px;}
+  .cta-box p{color:var(--text2);font-size:15px;margin-bottom:20px;}
+  .cta-btn{
+    display:inline-block;background:var(--accent);color:white;
+    text-decoration:none;padding:10px 24px;border-radius:6px;
+    font-weight:600;font-size:14px;
+  }
+
+  @media(max-width:768px){
+    .compare{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">batu<span>bi</span></a>
+  <ul>
+    <li><a href="https://linkedin.com/in/batuhanerdeniz" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="tag-row">
+    <span class="tag tag-blue">Power BI</span>
+    <span class="tag tag-purple">DAX</span>
+    <span class="tag tag-amber">SSAS</span>
+  </div>
+  <h1>Calculation Groups: Stop Writing the Same DAX Measure Twelve Times</h1>
+  <p class="subtitle">If you have Sales YTD, Profit YTD, Revenue YTD, Cost YTD — you don't have a reporting problem. You have a modeling problem. Calculation Groups fix it.</p>
+  <div class="meta">
+    <div class="author-pic">BE</div>
+    <span>Batuhan Erdeniz</span>
+    <span class="meta-sep">|</span>
+    <span>April 11, 2026</span>
+    <span class="meta-sep">|</span>
+    <span>7 min read</span>
+  </div>
+</header>
+
+<article>
+
+<h2>The problem every Power BI developer knows</h2>
+<p>You start with a clean model. One measure: <code>Total Sales</code>. Life is good.</p>
+<p>Then the business asks for Year-to-Date. So you write <code>Sales YTD</code>. Then they want Previous Year. So you write <code>Sales PY</code>. Then Year-over-Year change. <code>Sales YoY</code>. Then they want the same three time calculations for Profit, Revenue, Cost, and Units.</p>
+<p>Suddenly you have 20 measures that are all the same logic wrapped around different base measures. Your model is bloated, your field list is a nightmare, and when the business changes the fiscal year start date, you're updating 15 measures by hand.</p>
+
+<div class="callout-red callout">
+  <strong>The classic explosion:</strong> 5 base measures × 4 time calculations = 20 measures. Add a budget comparison? 30. Add percentage variants? 45. It never stops.
+</div>
+
+<h2>What are Calculation Groups?</h2>
+<p>Calculation Groups let you define time intelligence (or any reusable calculation pattern) <strong>once</strong>, and apply it dynamically to any measure in your model. Instead of writing <code>Sales YTD</code>, <code>Profit YTD</code>, <code>Revenue YTD</code> as separate measures, you write the YTD logic once as a <strong>Calculation Item</strong>, and it works on every measure automatically.</p>
+<p>Think of it like this: a Calculation Group is a modifier. You pick a base measure (Sales, Profit, whatever) and a calculation item (YTD, PY, YoY), and Power BI applies the combination dynamically at query time.</p>
+
+<h2>Before vs. After</h2>
+
+<div class="compare">
+  <div class="compare-col bad">
+    <h4>Before: 20+ measures</h4>
+<pre>Sales YTD =
+TOTALYTD([Total Sales],
+  'Date'[Date])
+
+Profit YTD =
+TOTALYTD([Total Profit],
+  'Date'[Date])
+
+Revenue YTD =
+TOTALYTD([Total Revenue],
+  'Date'[Date])
+
+Sales PY =
+CALCULATE([Total Sales],
+  SAMEPERIODLASTYEAR(
+    'Date'[Date]))
+
+Profit PY =
+CALCULATE([Total Profit],
+  SAMEPERIODLASTYEAR(
+    'Date'[Date]))
+
+// ... 15 more measures</pre>
+    <div class="measure-count">
+      <span class="count-badge count-bad">20</span>
+      <span>measures to maintain</span>
+    </div>
+  </div>
+
+  <div class="compare-col good">
+    <h4>After: 1 Calculation Group</h4>
+<pre>// Calculation Group:
+// "Time Intelligence"
+
+// Item: Current
+SELECTEDMEASURE()
+
+// Item: YTD
+TOTALYTD(
+  SELECTEDMEASURE(),
+  'Date'[Date])
+
+// Item: Previous Year
+CALCULATE(
+  SELECTEDMEASURE(),
+  SAMEPERIODLASTYEAR(
+    'Date'[Date]))
+
+// Item: YoY %
+VAR _current = SELECTEDMEASURE()
+VAR _py = CALCULATE(
+  SELECTEDMEASURE(),
+  SAMEPERIODLASTYEAR(
+    'Date'[Date]))
+RETURN
+DIVIDE(_current - _py, _py)</pre>
+    <div class="measure-count">
+      <span class="count-badge count-good">4</span>
+      <span>calculation items, infinite measures</span>
+    </div>
+  </div>
+</div>
+
+<p>The magic is <code>SELECTEDMEASURE()</code>. This function dynamically references whichever base measure the user has in the visual. So the YTD calculation item works with Sales, Profit, Revenue, Cost — any measure — without you writing separate DAX for each one.</p>
+
+<h2>How to create one</h2>
+
+<h3>Option 1: Tabular Editor (recommended)</h3>
+<p>Tabular Editor is the standard tool for creating Calculation Groups. It works with both Power BI Desktop (via external tools) and SSAS Tabular models.</p>
+
+<pre>// In Tabular Editor:
+// 1. Right-click "Tables" → Create New → Calculation Group
+// 2. Name it "Time Intelligence"
+// 3. The column auto-created is your selector (rename it to "Time Calc")
+// 4. Right-click the Calculation Group → New Calculation Item
+// 5. Write the DAX expression for each item</pre>
+
+<p>After creating the Calculation Group, it appears in Power BI as a table with a single column. You drop that column into a slicer or matrix rows, and it dynamically modifies whatever measure is in the values area.</p>
+
+<h3>Option 2: Power BI Desktop (since late 2023)</h3>
+<p>Power BI Desktop now supports creating Calculation Groups natively. Go to the Model view, click "Calculation Group" in the ribbon, and build from there. It's more limited than Tabular Editor but works for straightforward use cases.</p>
+
+<h2>Real-world example: Time Intelligence + Formatting</h2>
+<p>Here's a pattern I use in production. Two Calculation Groups that work together:</p>
+
+<h3>Group 1: Time Intelligence</h3>
+<pre>// Current
+SELECTEDMEASURE()
+
+// YTD
+TOTALYTD(SELECTEDMEASURE(), 'Date'[Date])
+
+// Previous Year
+CALCULATE(
+    SELECTEDMEASURE(),
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+// YoY Change
+VAR _current = SELECTEDMEASURE()
+VAR _py =
+    CALCULATE(
+        SELECTEDMEASURE(),
+        SAMEPERIODLASTYEAR('Date'[Date])
+    )
+RETURN
+    _current - _py
+
+// YoY %
+VAR _current = SELECTEDMEASURE()
+VAR _py =
+    CALCULATE(
+        SELECTEDMEASURE(),
+        SAMEPERIODLASTYEAR('Date'[Date])
+    )
+RETURN
+    DIVIDE(_current - _py, _py)</pre>
+
+<h3>Group 2: Dynamic Format String</h3>
+<p>This is the underrated power move. You can attach a <strong>Format String Expression</strong> to each calculation item. The YoY % item can automatically format as percentage, while the absolute values stay as currency — without separate measures.</p>
+
+<pre>// Format String Expression for "YoY %"
+"0.0%;-0.0%;0.0%"
+
+// Format String Expression for "Current" / "YTD" / "PY"
+SELECTEDMEASUREFORMATSTRING()</pre>
+
+<p><code>SELECTEDMEASUREFORMATSTRING()</code> preserves the original measure's format. So Sales shows as currency, Units shows as whole numbers — automatically.</p>
+
+<h2>Common mistakes</h2>
+
+<p><strong>Don't put Calculation Groups in slicers AND visuals simultaneously without thinking.</strong> If you have the Time Intelligence column in a slicer set to "YTD" and also in the rows of a matrix, you'll get unexpected results. Pick one: slicer for single selection, or rows/columns for comparison.</p>
+
+<p><strong>Precedence matters when you have multiple Calculation Groups.</strong> If Group A modifies the measure first and Group B modifies second, you can get different results than the reverse. Set precedence in Tabular Editor to control the order. Lower number = applied first.</p>
+
+<p><strong>Not every measure should be affected.</strong> Some measures (like ratios or percentages) shouldn't get YTD treatment — a YTD of a profit margin doesn't make sense. Use <code>ISSELECTEDMEASURE()</code> to exclude specific measures:</p>
+
+<pre>// In the YTD calculation item:
+IF(
+    ISSELECTEDMEASURE([Profit Margin]),
+    SELECTEDMEASURE(),  // don't apply YTD
+    TOTALYTD(SELECTEDMEASURE(), 'Date'[Date])
+)</pre>
+
+<h2>When to use them</h2>
+
+<p>Calculation Groups are worth it when you have <strong>3+ base measures that all need the same set of calculations</strong>. If you only have Sales and Profit with a couple of time variants, the overhead of setting up a Calculation Group might not be worth it. But the moment you hit that third or fourth base measure, and especially when you're maintaining an SSAS model that serves multiple reports, Calculation Groups become non-negotiable.</p>
+
+<div class="callout callout-green">
+  <strong>The bottom line:</strong> Calculation Groups reduce measure count, eliminate copy-paste DAX, centralize business logic, and make your model significantly easier to maintain. If you're still writing Sales YTD, Profit YTD, Revenue YTD as separate measures, you're doing it the hard way.
+</div>
+
+<hr>
+
+<h2>What's next</h2>
+<p>In my next post, I'll walk through how Calculation Groups interact with SSAS Tabular models and how to deploy them properly in an enterprise environment. If you're using SSAS as your semantic layer, Calculation Groups become even more powerful.</p>
+
+<p>Questions or doing something similar? Find me on <a href="https://linkedin.com/in/batuhanerdeniz">LinkedIn</a>.</p>
+
+</article>
+
+</body>
+</html>
