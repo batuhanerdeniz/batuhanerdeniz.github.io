@@ -2,4 +2,4 @@ Sup!
 
 # batuhanerdeniz.github.io
 
-My personal portfolio
+My personal portfolio and blog
