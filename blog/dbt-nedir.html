@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dbt Nedir ve Neden Önemlidir? SQL'i Bir Yazılım Projesine Dönüştürmek | BatuBI</title>
+<meta name="description" content="dbt (data build tool) ile transformation katmanını nasıl yönetirsiniz, neden ETL değil ELT yapmalısınız, ve gerçek hayatta nasıl kullanılır.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --bg-card: #ffffff;
+    --bg3: #f3f1ec;
+    --text: #1a1a1a;
+    --text2: #5c5c5c;
+    --text3: #8a8a8a;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --green: #059669;
+    --green-soft: #d1fae5;
+    --amber: #d97706;
+    --amber-soft: #fef3c7;
+    --purple: #7c3aed;
+    --purple-soft: #ede9fe;
+    --red: #dc2626;
+    --red-soft: #fee2e2;
+    --border: #e5e5e5;
+    --code-bg: #0f172a;
+    --code-text: #e2e8f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --bg3: #1a1a1a;
+      --text: #e5e5e5;
+      --text2: #a3a3a3;
+      --text3: #6b6b6b;
+      --accent: #60a5fa;
+      --accent-soft: #1e3a5f;
+      --green: #34d399;
+      --green-soft: #064e3b;
+      --amber: #fbbf24;
+      --amber-soft: #78350f;
+      --purple: #a78bfa;
+      --purple-soft: #3b1f7e;
+      --red: #f87171;
+      --red-soft: #450a0a;
+      --border: #262626;
+      --code-bg: #0a0e1a;
+      --code-text: #e2e8f0;
+    }
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Satoshi',sans-serif;
+    background:var(--bg);color:var(--text);
+    line-height:1.75;font-size:17px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+
+  nav{max-width:740px;margin:0 auto;padding:28px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-weight:900;font-size:20px;color:var(--text);text-decoration:none;letter-spacing:-0.5px;}
+  .logo span{color:var(--accent);}
+  nav ul{list-style:none;display:flex;gap:28px;}
+  nav a{text-decoration:none;color:var(--text2);font-size:14px;font-weight:500;transition:color .2s;}
+  nav a:hover{color:var(--text);}
+
+  .hero{max-width:740px;margin:0 auto;padding:60px 24px 40px;}
+  .tag-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .tag{font-size:12px;font-weight:500;padding:4px 10px;border-radius:4px;letter-spacing:.3px;}
+  .tag-blue{background:var(--accent-soft);color:var(--accent);}
+  .tag-purple{background:var(--purple-soft);color:var(--purple);}
+  .tag-amber{background:var(--amber-soft);color:var(--amber);}
+  .tag-green{background:var(--green-soft);color:var(--green);}
+
+  h1{
+    font-family:'Instrument Serif',serif;
+    font-size:clamp(32px,5vw,46px);font-weight:400;
+    line-height:1.15;letter-spacing:-1px;margin-bottom:16px;
+  }
+  .subtitle{color:var(--text2);font-size:18px;line-height:1.6;max-width:600px;}
+  .meta{margin-top:28px;display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
+  .author-pic{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--accent-soft);display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;color:var(--accent);
+  }
+  .meta-sep{color:var(--border);}
+
+  article{max-width:740px;margin:0 auto;padding:0 24px 80px;}
+  article h2{
+    font-family:'Instrument Serif',serif;
+    font-size:28px;font-weight:400;margin:52px 0 16px;letter-spacing:-.5px;
+  }
+  article h3{font-size:18px;font-weight:700;margin:36px 0 12px;}
+  article p{margin-bottom:20px;color:var(--text);}
+  article strong{font-weight:700;}
+  article ul,article ol{padding-left:24px;margin-bottom:20px;}
+  article li{margin-bottom:8px;}
+
+  pre{
+    background:var(--code-bg);color:var(--code-text);
+    padding:20px 24px;border-radius:10px;overflow-x:auto;
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;
+    line-height:1.65;margin:20px 0 28px;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  code{font-family:'JetBrains Mono',monospace;font-size:14px;}
+  p code{
+    background:var(--accent-soft);color:var(--accent);
+    padding:2px 7px;border-radius:4px;font-size:14px;
+  }
+
+  .callout{
+    border-left:3px solid var(--accent);
+    background:var(--accent-soft);
+    padding:16px 20px;border-radius:0 8px 8px 0;
+    margin:24px 0;font-size:15px;
+  }
+  .callout-green{border-left-color:var(--green);background:var(--green-soft);}
+  .callout-amber{border-left-color:var(--amber);background:var(--amber-soft);}
+  .callout-red{border-left-color:var(--red);background:var(--red-soft);}
+
+  /* Before/After comparison */
+  .compare{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+    margin:24px 0 32px;
+  }
+  .compare-col{
+    background:var(--bg-card);border:1px solid var(--border);
+    border-radius:10px;padding:20px;overflow:hidden;
+  }
+  .compare-col h4{
+    font-size:13px;font-weight:700;text-transform:uppercase;
+    letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;
+    border-bottom:1px solid var(--border);
+  }
+  .compare-col.bad h4{color:var(--red);}
+  .compare-col.good h4{color:var(--green);}
+  .compare-col pre{
+    margin:0;font-size:12.5px;padding:14px;
+    border:none;
+  }
+
+  /* Layer diagram */
+  .layer-stack{display:flex;flex-direction:column;gap:8px;margin:24px 0 32px;}
+  .layer{
+    padding:14px 20px;border-radius:8px;
+    font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .layer-badge{font-size:11px;font-weight:500;opacity:.8;}
+  .layer-raw{background:var(--red-soft);color:var(--red);}
+  .layer-staging{background:var(--amber-soft);color:var(--amber);}
+  .layer-intermediate{background:var(--accent-soft);color:var(--accent);}
+  .layer-mart{background:var(--green-soft);color:var(--green);}
+
+  hr{border:none;height:1px;background:var(--border);margin:48px 0;}
+
+  .article-footer{max-width:740px;margin:0 auto;padding:0 24px 60px;}
+  .cta-box{
+    background:var(--bg-card);border:1px solid var(--border);
+    border-radius:12px;padding:32px;text-align:center;
+  }
+  .cta-box h3{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400;margin-bottom:8px;}
+  .cta-box p{color:var(--text2);font-size:15px;margin-bottom:20px;}
+  .cta-btn{
+    display:inline-block;background:var(--accent);color:white;
+    text-decoration:none;padding:10px 24px;border-radius:6px;
+    font-weight:600;font-size:14px;
+  }
+
+  @media(max-width:768px){
+    .compare{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">batu<span>bi</span></a>
+  <ul>
+    <li><a href="https://www.linkedin.com/in/batuhan-erdeniz/" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="tag-row">
+    <span class="tag tag-green">dbt</span>
+    <span class="tag tag-blue">SQL</span>
+    <span class="tag tag-amber">ELT</span>
+    <span class="tag tag-purple">Modern Data Stack</span>
+  </div>
+  <h1>dbt: SQL'i Bir Yazılım Projesine Dönüştürmek</h1>
+  <p class="subtitle">Transformation katmanınız hâlâ elle çalıştırılan stored procedure'lardan mı oluşuyor? dbt'nin neden bu sektörde standart haline geldiğini, nasıl çalıştığını ve gerçekte ne zaman kullanmanız gerektiğini anlatalım.</p>
+  <div class="meta">
+    <div class="author-pic">BE</div>
+    <span>Batuhan Erdeniz</span>
+    <span class="meta-sep">|</span>
+    <span>11 Mayıs 2026</span>
+    <span class="meta-sep">|</span>
+    <span>9 dk okuma</span>
+  </div>
+</header>
+
+<article>
+
+<h2>Sorun: Transformation katmanı her yerde, hiçbir yerde</h2>
+<p>Tipik bir veri ekibinin transformation katmanına bakın. Bazı dönüşümler ADF pipeline'larının içine gömülmüş. Bazıları SSMS'de el ile çalıştırılan stored procedure'lar. Birkaçı Excel'de. Bir kısmı Power BI'ın içinde Power Query olarak. Kimse tam resmi bilmiyor.</p>
+<p>Bu dağınıklık küçük takımlarda başlar ama büyür. Bir gün müşteri tanımı değişir — "aktif müşteri" artık son 30 değil son 60 gün içinde alışveriş yapan müşteri anlamına gelir — ve bu değişikliği 7 farklı yerde güncellemeniz gerekir. Ve muhtemelen 2 tanesini unutursunuz.</p>
+
+<div class="callout callout-red">
+  <strong>Klasik anti-pattern:</strong> Transformation mantığı birden fazla araç ve katmana dağılmış. Hangi kodun "doğru" olduğunu kimse bilmiyor, kimse değiştirmeye cesaret edemiyor.
+</div>
+
+<h2>dbt tam olarak ne yapıyor?</h2>
+<p>dbt (data build tool), transformation katmanını — yani ham veriden analitik tablolara giden tüm SQL dönüşümlerini — tek bir yerde, versiyon kontrolüyle, test edilebilir ve belgelenebilir hale getiren açık kaynak bir araçtır.</p>
+<p>dbt <strong>sadece T yapar</strong>. Extract ve Load kısmına karışmaz. Filocraft, Airbyte, ADF veya başka bir araçla veriyi warehouse'a attıktan sonra, dbt devreye girer ve SQL modellerinizi çalıştırır.</p>
+
+<div class="callout">
+  <strong>ETL değil, ELT:</strong> Önce yükle (Load), sonra dönüştür (Transform). Warehouse güçlüyse — Snowflake, BigQuery, Redshift, hatta SQL Server — dönüşümü orada yapmak hem daha hızlı hem de daha izlenebilir.
+</div>
+
+<h2>Katman mimarisi: Medallion'ın SQL hali</h2>
+<p>dbt projelerinde yaygın olarak kullanılan katman yapısı şudur:</p>
+
+<div class="layer-stack">
+  <div class="layer layer-raw">
+    <span>Sources / Raw</span>
+    <span class="layer-badge">Ham veri — dokunma</span>
+  </div>
+  <div class="layer layer-staging">
+    <span>Staging (stg_)</span>
+    <span class="layer-badge">1:1 kaynak yansıması, tip cast, rename</span>
+  </div>
+  <div class="layer layer-intermediate">
+    <span>Intermediate (int_)</span>
+    <span class="layer-badge">İş mantığı, join'ler, aggregation</span>
+  </div>
+  <div class="layer layer-mart">
+    <span>Mart (dim_ / fct_)</span>
+    <span class="layer-badge">BI araçlarına açık son tablolar</span>
+  </div>
+</div>
+
+<p>Bu yapı Kimball'ın dimensional modeling felsefesiyle uyumludur. Staging katmanı kaynağı temizler ama iş mantığı eklemez. Mart katmanı iş kullanıcısının anlayabileceği tablolardır. Intermediate katmanı ise bu ikisi arasındaki karmaşık dönüşümleri izole eder.</p>
+
+<h2>Model nedir, nasıl yazılır?</h2>
+<p>dbt'de her SQL dosyası bir <strong>model</strong>dir. Her model bir tablo veya view haline gelir. Bağımlılıklar <code>ref()</code> fonksiyonuyla tanımlanır — böylece dbt hangi modelin hangisinden önce çalışması gerektiğini otomatik çözer.</p>
+
+<h3>Staging modeli örneği</h3>
+<pre>-- models/staging/stg_orders.sql
+WITH source AS (
+    SELECT * FROM {{ source('raw', 'orders') }}
+),
+
+renamed AS (
+    SELECT
+        order_id,
+        customer_id,
+        order_date::DATE                    AS order_date,
+        total_amount_cents / 100.0          AS total_amount,
+        LOWER(status)                       AS status,
+        created_at
+    FROM source
+    WHERE order_date >= '2020-01-01'   -- iş kuralı değil, veri kalitesi filtresi
+)
+
+SELECT * FROM renamed</pre>
+
+<h3>Fact tablosu örneği</h3>
+<pre>-- models/marts/fct_orders.sql
+WITH orders AS (
+    SELECT * FROM {{ ref('stg_orders') }}
+),
+
+customers AS (
+    SELECT * FROM {{ ref('stg_customers') }}
+),
+
+final AS (
+    SELECT
+        o.order_id,
+        o.order_date,
+        o.total_amount,
+        o.status,
+        c.customer_id,
+        c.customer_segment,
+        c.country
+    FROM orders o
+    LEFT JOIN customers c ON o.customer_id = c.customer_id
+)
+
+SELECT * FROM final</pre>
+
+<p><code>ref('stg_orders')</code> ifadesi dbt'ye "bu model stg_orders'a bağımlıdır, önce onu çalıştır" der. Çalıştırma sırası, parallelization ve dependency resolution tamamen otomatiktir.</p>
+
+<h2>Gerçek güç: Test ve Dokümantasyon</h2>
+
+<h3>Schema testleri</h3>
+<p>dbt'nin en değerli özelliklerinden biri yerleşik veri kalitesi testleridir. Her sütun için YAML dosyasında kurallar tanımlarsınız:</p>
+
+<pre># models/marts/schema.yml
+version: 2
+
+models:
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['pending', 'completed', 'cancelled', 'refunded']
+
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id</pre>
+
+<p><code>dbt test</code> komutunu çalıştırdığınızda tüm bu kurallar warehouse'da SQL sorgularına dönüşür ve çalıştırılır. CI/CD'ye bağlarsanız, bozuk veriyi production'a geçmeden önce yakalarsınız.</p>
+
+<div class="callout callout-green">
+  <strong>Gerçek hayat değeri:</strong> "Bu tablodaki order_id'ler unique mi?" sorusunu artık elle sormuyorsunuz. Her deployment'ta otomatik kontrol edilir. Veri analistleri tablolara güvenmeye başlar.
+</div>
+
+<h3>Otomatik dokümantasyon</h3>
+<p><code>dbt docs generate</code> komutu tüm modellerinizi, sütunlarınızı ve bağımlılıklarınızı tarayarak bir web arayüzü oluşturur. DAG görselleştirmesiyle hangi modelin hangi kaynaktan beslendiğini tek bakışta görebilirsiniz. Yeni bir veri mühendisi takıma katıldığında onboarding süresi dramatik biçimde kısalır.</p>
+
+<h2>dbt Core vs dbt Cloud</h2>
+
+<div class="compare">
+  <div class="compare-col bad">
+    <h4>dbt Core (Açık Kaynak)</h4>
+<pre>- Tamamen ücretsiz
+- CLI tabanlı
+- Git entegrasyonu kendinize
+- Orchestration kendinize
+  (Airflow, Prefect vb.)
+- CI/CD kurulumu kendinize
+- Metadata yönetimi kendinize
+
+Kimler kullanır:
+Kendi altyapısı olan,
+DevOps kapasitesi yüksek
+data engineering ekipleri</pre>
+  </div>
+
+  <div class="compare-col good">
+    <h4>dbt Cloud</h4>
+<pre>- Ücretli (developer plan ücretsiz)
+- Web IDE + scheduler dahil
+- Git entegrasyonu hazır
+- Job orchestration yerleşik
+- CI/CD otomatik
+- Explorer (dokümantasyon UI)
+
+Kimler kullanır:
+Hızlı başlamak isteyen,
+DevOps yükünü azaltmak
+isteyen takımlar</pre>
+  </div>
+</div>
+
+<p>Küçük ve orta ölçekli şirketlerin büyük çoğunluğu dbt Cloud'dan başlar. Zaten Snowflake veya BigQuery kullanıyorsanız, ekstra infra yönetmeden değer almak için mantıklı bir tercih. Kurumsal ortamda, özellikle on-premise SQL Server üzerinde çalışıyorsanız, dbt Core + Airflow kombinasyonu daha yaygın.</p>
+
+<div class="callout callout-amber">
+  <strong>SQL Server / Azure Synapse kullanıcılarına not:</strong> dbt, SQL Server ve Azure Synapse Analytics'i destekler (<code>dbt-sqlserver</code> ve <code>dbt-synapse</code> adapter'ları). SSAS Tabular ile direkt entegrasyonu yoktur — dbt warehouse katmanını yönetir, semantic layer değil. Kombine kullanımda dbt çıktıları SSAS'ın veri kaynağı olur.
+</div>
+
+<h2>Ne zaman dbt kullanmalısınız?</h2>
+
+<p>dbt her zaman doğru araç değil. Şu kriterlere bakın:</p>
+
+<ul>
+  <li><strong>Kullanın:</strong> Transformation mantığı birden fazla yere dağılmışsa ve bunun acısını çekiyorsanız.</li>
+  <li><strong>Kullanın:</strong> Veri analistleri de SQL yazıyor ve katkıda bulunmalarını istiyorsanız — dbt'nin öğrenme eğrisi düşük.</li>
+  <li><strong>Kullanın:</strong> "Bu sayı nereden geliyor?" sorusuna cevap vermekte zorlanıyorsanız. Lineage otomatik oluşur.</li>
+  <li><strong>Kullanmayın:</strong> Tek kişilik bir ekipseniz ve 5-10 basit stored procedure ile işinizi görüyorsanız. Overhead değmez.</li>
+  <li><strong>Kullanmayın:</strong> Veri kaynağınız temiz değilse ve transformation öncesi ciddi data quality çalışması gerekiyorsa — önce o sorunu çözün.</li>
+</ul>
+
+<h2>Stored procedure'lardan geçiş nasıl yapılır?</h2>
+<p>Mevcut bir pipeline'ı dbt'ye taşımanın en az riskli yolu <strong>incremental migration</strong>dır. Tüm stored procedure'ları bir gecede dönüştürmeye çalışmayın.</p>
+
+<ol>
+  <li>Yeni bir model yazarken dbt ile başlayın. Mevcut olanları dokunmadan bırakın.</li>
+  <li>Staging katmanını önce oluşturun. En az iş mantığı içerdiği için en güvenli başlangıç noktasıdır.</li>
+  <li>Her yeni mart tablosu için dbt kullanın. Stored procedure'u deprecated olarak işaretleyin ama silmeyin henüz.</li>
+  <li>Sonuçlar eşleştiğinde eski prosedürü kaldırın.</li>
+</ol>
+
+<pre>-- dbt_project.yml — Projenin kök yapılandırması
+name: 'my_data_project'
+version: '1.0.0'
+config-version: 2
+
+profile: 'my_sqlserver_profile'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+docs-paths: ["docs"]
+
+models:
+  my_data_project:
+    staging:
+      +materialized: view       # Staging'i view bırak, depolama maliyeti düşük
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table      # Mart'ları tablo olarak materialize et</pre>
+
+<div class="callout callout-green">
+  <strong>Sonuç:</strong> dbt, SQL transformation'ı yazılım mühendisliğinin standartlarına taşır: versiyon kontrolü, test, dokümantasyon, modülerlik. Eğer takımınız hâlâ "bu stored procedure kim yazmış, dokunma" kültüründeyse, dbt bu kültürü kırmak için güçlü bir başlangıç noktasıdır.
+</div>
+
+<hr>
+
+<h2>Sıradaki yazıda</h2>
+<p>dbt'yi SSAS Tabular ile birlikte kullanan bir enterprise mimarisi üzerine yazmayı planlıyorum — warehouse katmanını dbt yönetirken semantic layer'ı SSAS'ta tutmak ne zaman mantıklı, ne zaman overkill?</p>
+
+<p>Soru ya da benzer bir geçiş süreciyle mi uğraşıyorsunuz? <a href="https://www.linkedin.com/in/batuhan-erdeniz/">LinkedIn'den</a> ulaşabilirsiniz.</p>
+
+</article>
+
+</body>
+</html>
